@@ -42,6 +42,9 @@ def total_stats(aList_of_dictionaries):
         pokemon_stats[pokemon_name] = total_pokemon_stats
 
     return pokemon_stats
+#Note I used a "(" (on line 36) and ")" (line 41) to help 
+#clean up the code, allowing the value for total_pokemon_stats
+#to be split over several lines. #cleanercode! 
 
 
 
