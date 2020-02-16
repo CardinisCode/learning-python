@@ -18,8 +18,13 @@
 
 
 #Add your function here!
-
-
+def population_density(aList_of_dictionaries):
+    total_population = 0
+    total_area = 0
+    for dictionary in aList_of_dictionaries: 
+        total_population += dictionary["population"]
+        total_area += dictionary["area"]
+    return total_population / total_area
 
 #Below are some lines of code that will test your function.
 #You can change the value of the variable(s) to test your
