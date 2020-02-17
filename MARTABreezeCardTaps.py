@@ -9,6 +9,8 @@
 #marta_sample.csv in the dropdown in the top left. Note, however, that
 #the real dataset is massive: over 200,000 individual rides are recorded.
 #So, you're going to be dealing with some pretty big data!
+
+#Note: NB: expect 200'000 lines of code (real file)
 #
 #Each line of the file contains six items, separated by commas:
 #
@@ -46,36 +48,87 @@
 #HINT 2: You'll probably want to use a dictionary, with station IDs as
 #the keys and 
 
+def packingStationNamesIntoDict(filename):
+    stationNamesFile = open(filename, "r")
+    fileContents = stationNamesFile.readlines()
+    stationNamesFile.close()
 
-def breezeCardTaps(filename): 
+    dict_of_stations = {}
+
+    for line in fileContents: 
+        if "\n" in line: 
+            line = line.strip("\n")
+        currentLine = line.split("\t")
+        stationNumber = currentLine[0]
+        stationName = currentLine[1]
+
+        dict_of_stations[stationNumber] = stationName
+        
+    return dict_of_stations
+
+print(packingStationNamesIntoDict("stations.txt"))
+print()
+
+def six_important_details_in_one_dict(filename):
     marta_file = open(filename, 'r')
     fileContents = marta_file.readlines()
     marta_file.close() 
 
-    cardTapsDictionary = {}
-    #length_of_fileContents = len(fileContents)
-    #print("The file has", length_of_fileContents, "lines")
+    transitTimeList = []
+    deviceIDList = []
+    stationIDList = []
+    useTypeList = []
+    serialNumberList = []
 
     for line in fileContents:
         if "\n" in line: 
             line = line.strip("\n")
         current_line = line.split(",")
+
+        transitTimeList.append(current_line[1])
+         
+        deviceIDList.append(current_line[2])
+        stationIDList.append(current_line[3])
+        useTypeList.append(current_line[4])
+        serialNumberList.append(current_line[5])
+
+        dict_of_details = {
+            "transitTime":transitTimeList, 
+            "deviceID":deviceIDList,
+            "stationID":stationIDList,
+            "useType":useTypeList,
+            "serialNumber":serialNumberList
+            }
+    return dict_of_details
+#print(six_important_details_in_one_dict("marta_sample.txt"))
+print("We're now currently working on avg_breezeCardTaps")
+def avg_breezeCardTaps(aDict): 
+    cardTapsDictionary = {}
+    
+    #1st I want to find the total no. of taps per station:
+    if "stationID" in aDict:
+        list_of_stationIDs = aDict["stationID"]
+
+    for stationID in list_of_stationIDs: 
+        number_of_taps_per_station = list_of_stationIDs.count(stationID)
+        cardTapsDictionary[stationID] = number_of_taps_per_station
+    print("Our currentTapsDictionary currently looks like:", cardTapsDictionary)
+
+    number_of_stations = len(cardTapsDictionary)
+    print("There are", number_of_stations, "stations.")
         
-        transitTime = current_line[1]
-        deviceID = current_line[2]
-        stationID = current_line[3]
-        useType = current_line[4]
-        serialNumber = current_line[5]
+    total_number_of_taps = 0
+    for (stationID, number_of_taps) in cardTapsDictionary.items():
+        total_number_of_taps += number_of_taps
+    print("There have been", total_number_of_taps, "overall!")
 
-        if not stationID in cardTapsDictionary: 
-            cardTapsDictionary[stationID] = []
-        cardTapsDictionary[stationID] = [transitTime, deviceID, useType, serialNumber]
+    average_taps_per_station = total_number_of_taps / number_of_stations
 
+    return average_taps_per_station
+    
+    
 
-
-    return cardTapsDictionary
-
-print(breezeCardTaps("marta_sample.txt"))
+print(avg_breezeCardTaps(six_important_details_in_one_dict("marta_sample.txt")))
 
 
 
