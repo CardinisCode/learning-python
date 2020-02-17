@@ -46,18 +46,6 @@
 #HINT 2: You'll probably want to use a dictionary, with station IDs as
 #the keys and 
 
-#def remove_unwanted_lines_and_newlines(fileName):
-    #marta_file = open(fileName, 'w')
-    #fileContents = marta_file.readlines()
-    #marta_file.close()
-    
-    #for line in fileContents:
-        #print(len(line))
-
-    #return fileContents
-
-#print(remove_unwanted_lines_and_newlines("marta_sample.txt"))
-
 
 def breezeCardTaps(filename): 
     marta_file = open(filename, 'r')
@@ -65,29 +53,23 @@ def breezeCardTaps(filename):
     marta_file.close() 
 
     cardTapsDictionary = {}
-    length_of_fileContents = len(fileContents)
+    #length_of_fileContents = len(fileContents)
+    #print("The file has", length_of_fileContents, "lines")
 
     for line in fileContents:
         if "\n" in line: 
             line = line.strip("\n")
-        if len(line) <1: 
-            print("Found an empty line!")
+        current_line = line.split(",")
         
-    
-        
-        
-        #current_line = line.split(",")
-        #print("after:", current_line)
-        #print()
-        #transitTime = current_line_split[1]
-        #deviceID = current_line_split[2]
-        #stationID = current_line_split[3]
-        #useType = current_line_split[4]
-        #serialNumber = current_line_split[5]
+        transitTime = current_line[1]
+        deviceID = current_line[2]
+        stationID = current_line[3]
+        useType = current_line[4]
+        serialNumber = current_line[5]
 
-        #if not stationID in cardTapsDictionary: 
-            #cardTapsDictionary[stationID] = []
-        #cardTapsDictionary[stationID] = [transitTime, deviceID, useType, serialNumber]
+        if not stationID in cardTapsDictionary: 
+            cardTapsDictionary[stationID] = []
+        cardTapsDictionary[stationID] = [transitTime, deviceID, useType, serialNumber]
 
 
 
