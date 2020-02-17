@@ -49,25 +49,10 @@ def stars(movies, tvshows):
 
     #Sorting the values for every key in our dictionary:          
     for (actor, list_of_performances) in performers_dict.items():
-        print(actor, ":", list_of_performances)
         #So far so good, now to figure out how to sort out our values...
-        
-        #This line:
-        #sorted_performers_dict[actor] = {actor:sorted(list_of_performances)}
-        #Seems to produce this (below) for every key: 
-        #{'Alison Brie': {'Alison Brie': ['Community', 'How to Be Single', 'The Lego Movie']}, 
+        sorted_performers_dict[actor] = sorted(list_of_performances)
 
-        #Whilst this: 
-        #sorted_performers_dict = {actor:sorted(list_of_performances)}
-        #seems to replace each value with the next so im only left with the last key's values: 
-        #{'Portia de Rossi': ['Arrested Development']}}
-
-    return sorted_performers_dict
-
-
-            
-            
-    
+    return sorted_performers_dict  
 
 #Below are some lines of code that will test your function.
 #You can change the value of the variable(s) to test your
