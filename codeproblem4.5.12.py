@@ -49,7 +49,6 @@ def stars(movies, tvshows):
 
     #Sorting the values for every key in our dictionary:          
     for (actor, list_of_performances) in performers_dict.items():
-        #So far so good, now to figure out how to sort out our values...
         sorted_performers_dict[actor] = sorted(list_of_performances)
 
     return sorted_performers_dict  
