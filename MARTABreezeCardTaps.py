@@ -48,6 +48,10 @@
 #HINT 2: You'll probably want to use a dictionary, with station IDs as
 #the keys and 
 
+important_details_filename = "marta_sample.txt"
+stations_filename = "stations.txt"
+
+
 def packingStationNamesIntoDict(filename):
     stationNamesFile = open(filename, "r")
     fileContents = stationNamesFile.readlines()
@@ -66,8 +70,6 @@ def packingStationNamesIntoDict(filename):
         
     return dict_of_stations
 
-print(packingStationNamesIntoDict("stations.txt"))
-print()
 
 def six_important_details_in_one_dict(filename):
     marta_file = open(filename, 'r')
@@ -100,8 +102,8 @@ def six_important_details_in_one_dict(filename):
             "serialNumber":serialNumberList
             }
     return dict_of_details
-#print(six_important_details_in_one_dict("marta_sample.txt"))
-print("We're now currently working on avg_breezeCardTaps")
+
+
 def avg_breezeCardTaps(aDict): 
     cardTapsDictionary = {}
     
@@ -112,23 +114,67 @@ def avg_breezeCardTaps(aDict):
     for stationID in list_of_stationIDs: 
         number_of_taps_per_station = list_of_stationIDs.count(stationID)
         cardTapsDictionary[stationID] = number_of_taps_per_station
-    print("Our currentTapsDictionary currently looks like:", cardTapsDictionary)
 
     number_of_stations = len(cardTapsDictionary)
-    print("There are", number_of_stations, "stations.")
-        
     total_number_of_taps = 0
     for (stationID, number_of_taps) in cardTapsDictionary.items():
         total_number_of_taps += number_of_taps
-    print("There have been", total_number_of_taps, "overall!")
-
+        
     average_taps_per_station = total_number_of_taps / number_of_stations
+    average_taps_per_station = round(average_taps_per_station,2)
 
-    return average_taps_per_station
-    
+    return (average_taps_per_station, cardTapsDictionary)    
+
+
+def stationID_with_traffic_closest_to_average(important_details_local):
+    print("Now to find the station with the traffic closest to the average:")
+    if "stationID" in important_details_local:
+        list_of_stationIDs = important_details_local["stationID"]
+
+    overall_average = avg_breezeCardTaps(important_details_local)[0]
+    cardTapsDictionary = avg_breezeCardTaps(important_details_local)[1]
+    print("Our Overall average:", overall_average)
+    print("My cardtapsDictionary:", cardTapsDictionary)
     
 
-print(avg_breezeCardTaps(six_important_details_in_one_dict("marta_sample.txt")))
+    #Now I need to find the station with the taps closest to the average. 
+    #Firstly to find the differene between each number and our overage average:
+    my_dict_of_differences = {}
+    #Storing these differences in a dictionary
+    for (station, cardtaps) in cardTapsDictionary.items(): 
+        difference = overall_average-cardTapsDictionary[station]
+        difference = round(difference, 2)
+        difference = "difference: " + str(difference) 
+        my_dict_of_differences[station] = [cardtaps, difference]
+    
+    #For now I will use this dictionary to manually find the station with the total taps
+    #closest to our average. 
+    return my_dict_of_differences
+
+
+def find_station_with_least_traffic(closest_average, station_dict):
+
+    Updated_station_dict = {}
+    
+    for station_number, card_taps_tuple in closest_average.items():
+        Updated_station_dict[station_dict[station_number]] = card_taps_tuple
+    
+    return Updated_station_dict
+
+
+print(six_important_details_in_one_dict("marta_sample.txt"))
+
+# station_dict = packingStationNamesIntoDict("stations.txt")
+# important_details_dict = six_important_details_in_one_dict(important_details_filename)
+
+
+# average_card_taps_dict = avg_breezeCardTaps(important_details_dict)
+# closest_average_dict = stationID_with_traffic_closest_to_average(important_details_dict)
+
+# print(find_station_with_least_traffic(closest_average_dict, station_dict))
+
+
+
 
 
 
