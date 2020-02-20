@@ -154,6 +154,15 @@ def output_data():
     print("Least Traffic:", station_with_least_traffic(rides_per_station))
     print("Closest to Average:", find_closest_to_average(average_taps, rides_per_station))
 
+#Answers submitted: 
+#Q1: What is the average number of Breeze Card taps per station? (Only consider stations with at least one tap.)
+#My Answer: 5847.973684210527
+
+#Q2: Which station has traffic closest to the average? (Enter the numeric station ID)
+#My answer: 24
+
+#Q3: Which station has the least traffic? (Enter the numeric station ID)
+#My answer: 23
 
 # Code written by Andi, Tests written by Peter
 class TestMarta(unittest.TestCase):
