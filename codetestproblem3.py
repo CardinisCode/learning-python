@@ -35,7 +35,6 @@ def tire_pressure(measurements):
     for measurement in measurements: 
         if measurement >= 15 and measurement <= 55:
             valid_measurements.append(measurement)
-    print("My valid measurements are:", valid_measurements)
 
     last_five_measurements = valid_measurements[-5:]
     total_measurements = 0

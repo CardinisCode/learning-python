@@ -164,6 +164,8 @@ def output_data():
 #Q3: Which station has the least traffic? (Enter the numeric station ID)
 #My answer: 23
 
+#All 3 answers were correct (As per their grading)
+
 # Code written by Andi, Tests written by Peter
 class TestMarta(unittest.TestCase):
     def test_should_return_closest_to_average(self):

@@ -46,7 +46,6 @@ def count_types(random_string):
     punctuation_count = 0
     space_count = 0
     number_count = 0
-    #random_string = random_string.split()
 
     for item in random_string:
         for letter in item: 
