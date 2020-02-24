@@ -28,12 +28,23 @@
 
 #Add your code here!
 def next_fib(fibonacci_list, n):
-    pseudo_fibonacci = []
-    for i in fibonacci_list:
-        pseudo_fibonacci.append(i)
-    print(pseudo_fibonacci)
+    fibonacci_length = len(fibonacci_list)
+    while fibonacci_length <= (fibonacci_length + 3): 
+        last_number = fibonacci_list[fibonacci_length -1]
+        print(last_number)
+        next_fibonacci = last_number + fibonacci_list[fibonacci_length -2]
+        fibonacci_list.append(next_fibonacci)
+        fibonacci_length += 1
+    
+    #pseudo_fibonacci = []
+    #for i in fibonacci_list:
+        #pseudo_fibonacci.append(i)
 
-    return pseudo_fibonacci
+    #p_fibonacci_length = len(pseudo_fibonacci)
+    #print("There are", p_fibonacci_length, "numbers in this list")
+
+
+    #return pseudo_fibonacci
 #Below are some lines of code that will test your function.
 #You can change the value of the variable(s) to test your
 #function with different inputs.
