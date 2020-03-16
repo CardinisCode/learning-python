@@ -57,31 +57,20 @@ def find_net_force(force_instances):
     total_vertical = 0
 
     for instance in force_instances:
-        magnitude = instance.magnitude
-        print("The magnitude:", magnitude)
-        angle = instance.get_angle()
-        print("The angle:", angle)
         horizontal = instance.get_horizontal()
-        print("horizontal:", horizontal)
         vertical = instance.get_vertical()
-        print("vertical:", vertical)
         total_horizontal += horizontal
         total_vertical += vertical
-        print()
 
-    magnitude_of_the_net_force = (total_horizontal ** 2 + total_vertical ** 2) ** 0.5
-    print("total_horizontal:", total_horizontal)
-    print("total_vertical:", total_vertical)
-    net_force = (total_horizontal ** 2 + total_vertical ** 2) ** 0.5
+    magnitude_of_the_net_force = (total_horizontal ** 2 + total_vertical ** 2) **0.5
     angle_of_net_force = atan2(total_vertical, total_horizontal)
 
     magnitude = round(magnitude_of_the_net_force, 1)
-    angle = round(angle_of_net_force, 1)
-    angle = degrees(angle)
-    print("Net magnitude:", magnitude)
-    print("Net angle:", angle)
-
-
+    angle = degrees(angle_of_net_force)
+    angle = round(angle, 1)
+    
+    net_force_instance = Force(magnitude=magnitude, angle=angle)
+    return net_force_instance
 #Below are some lines of code that will test your object.
 #You can change these lines to test your code in different
 #ways.
@@ -90,14 +79,15 @@ def find_net_force(force_instances):
 #error-free and print:
 #103.1
 #-14.0
-print()
 force_1 = Force(50, 90)
 force_2 = Force(75, -90)
 force_3 = Force(100, 0)
 forces = [force_1, force_2, force_3]
 net_force = find_net_force(forces)
-#print(net_force.magnitude)
-#print(net_force.get_angle())
+print(net_force.magnitude)
+print(net_force.get_angle())
+
+
 
 
 
