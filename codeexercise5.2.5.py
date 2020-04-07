@@ -35,9 +35,4 @@ def linear(mylist, mystring):
 a_list = [5, 1, 3, 6, 7, 3, 1, 6, 7, 8, 3, 6]
 print(linear(a_list, 6))
 
-print()
-print()
-min = 5
-max = 15
-currentMiddle = (min + max) // 2
-print(currentMiddle)
+
