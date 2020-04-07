@@ -21,32 +21,26 @@
 #Write your code here!
 
 
-def insertion(to_sort_list):
-    last_sorted_index = 0
-
-    for index in range(1, len(to_sort_list)):
-        current_element = to_sort_list[index]
-
-        #To run from the last sorted index to 0, in reverse order:
-        for sort_index in range(last_sorted_index, -1, -1):
-            compare_element = to_sort_list[sort_index]
-
-            if compare_element > current_element:
-                to_sort_list[sort_index +1] = compare_element
-                to_sort_list[sort_index] = current_element
-                
-            else:
-                break
-
-        last_sorted_index += 1
-    return to_sort_list
-
+def insertion(unsorted_list):
+    for i in range(len(unsorted_list)):
+        for j in range(len(unsorted_list)):
+            print("i:", unsorted_list[i], "vs j:", unsorted_list[i])
+            if unsorted_list[i] > unsorted_list[j]:
+                print("i is bigger")
+                temp = unsorted_list[j]
+                unsorted_list[j] = unsorted_list[i]
+                unsorted_list[i] = temp
+            else: 
+                print("j is bigger")
+            print("our list so far:", unsorted_list)
+            print()
+    return unsorted_list
 
         
 
 
 #The code below will test your function. If your function
 #works, it will print: [1, 2, 3, 4, 5].
-print(insertion([8, 5, 1, 7, 3, 2, 4, 6, 9]))
+print(insertion([5, 1, 3, 2, 4]))
 
 
