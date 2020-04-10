@@ -1,6 +1,5 @@
 # Not my code, this is just for my referencing for problem set 5.2.6
 
-
 #Let's implement a binary search using recursion! For now,
 #our search will just return True if the item is found,
 #False if it's not.
