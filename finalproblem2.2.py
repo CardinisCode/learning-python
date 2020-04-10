@@ -41,18 +41,13 @@ def generate_name(filename, fullname):
     names = fullname.split(" ")
     first_name = names[0]
     first_name_initial = first_name[0]
-
-    for letter, superhero_name in superhero_first_names.items():
-        if letter == first_name_initial:
-            superhero_full_name += superhero_name + " "
-
     last_names = names[1:]
 
+    superhero_full_name += superhero_first_names[first_name_initial] + " "
+    
     for last_name in last_names:
         last_name_initial = last_name[0]
-        for letter, superhero_name in superhero_last_names.items():
-            if letter == last_name_initial:
-                superhero_full_name += superhero_name + " "
+        superhero_full_name += superhero_last_names[last_name_initial] + " "
 
     return superhero_full_name.rstrip()
 
@@ -77,7 +72,7 @@ print(generate_name("heronames.txt", "Peter Daniel Van Onselen"))
 print(generate_name("heronames.txt", "Janine Van Der Merwe"))
 # Outputs: Golden Skull Centurion Machine
 
-number_of_lines = 57-6
+number_of_lines = (52-6)-7
 print("Solved in", number_of_lines, "number of lines.")
 
 
