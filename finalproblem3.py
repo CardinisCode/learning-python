@@ -78,8 +78,6 @@ def next_move(current_hand):
 
     if "A" in current_hand and point_total >= 21:
         point_total -= 10
-
-    print(point_total)
     
     if point_total > 21:
         return "Bust"
