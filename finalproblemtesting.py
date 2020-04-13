@@ -43,6 +43,9 @@ def generate_name(filename, fullname):
         last_name = fullname.split(" ")[1]
         last_name.initial = last_name[0]
 
+    elif number_of_names >= 3:
+        
+
     for letter, superhero_name in superhero_first_names.items():
         if letter == first_name_initial:
             superhero_full_name += superhero_name + " "
