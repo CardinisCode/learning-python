@@ -44,87 +44,38 @@ def check_winner(game_moves):
     for row in range(0, len(game_moves)):
         # print(game_moves[row])
         for column in range(0, len(game_moves[row])):
-            print("Current slot:", game_moves[row][column])
 
+            # Its a None, just ignore
             if game_moves[row][column] == None:
-                print("Its a None, just ignore")
                 continue
 
-            elif column <= 3 and row <= 2:
-                if game_moves[row][column] == game_moves[row][column + 1] == game_moves[row][column +2] == game_moves[row][column +3]:
-                    print("Horizontal comparison")
+            # Diagonal comparison from top left to bottom right
+            if column <= 3 and row <= 2: 
+                if game_moves[row][column] == game_moves[row+1][column+1] == game_moves[row +2][column+2] == game_moves[row + 3][column +3]:
                     return game_moves[row][column]
 
-                elif game_moves[row][column] == game_moves[row+1][column] == game_moves[row +2][column] == game_moves[row + 3][column]:
-                    print("Vertical comparison")
-                    return game_moves[row][column]
-
-                elif game_moves[row][column] == game_moves[row+1][column+1] == game_moves[row +2][column+2] == game_moves[row + 3][column +3]:
-                    print("Diagonal comparison from top left to bottom right")
-                    return game_moves[row][column]
-
-            elif column >= 4 and row <= 2:
-                print("Row is:", row, "and the column is", column)
+            # Diagonal comparison from top right to bottom left
+            if column >= 4 and row <= 2:
                 if game_moves[row][column] == game_moves[row +1][column -1] == game_moves[row +2][column -2] == game_moves[row +3][column -3]:
-                    print("Diagonal comparison from top right to bottom left")
+                    return game_moves[row][column]
+            
+            # Horizontal comparison
+            if column <= 3:
+                if game_moves[row][column] == game_moves[row][column + 1] == game_moves[row][column +2] == game_moves[row][column +3]:
                     return game_moves[row][column]
 
+            # Vertical comparison
+            if row <= 2:
+                if game_moves[row][column] == game_moves[row+1][column] == game_moves[row +2][column] == game_moves[row + 3][column]:
+                    return game_moves[row][column]
                 
-
-
-
-
 
 #The code below tests your function on three Connect-4
 #boards. Remember, the line breaks are not needed to create
 #a 2D tuple; they're used here just for readability.
 
-
-
-
-
-nowins =(("X" , "X" , None, None, None, None, None),
-         ("O" , "O" , None, None, None, None, None),
-         ("O" , "X" , "O" , "O" , None, "O" , "O" ),
-         ("O" , "X" , "X" , "X" , None, "X" , "X" ),
-         ("X" , "X" , "X" , "O" , "X" , "X" , "O" ),
-         ("X" , "O" , "O" , "X" , "O" , "X" , "O" ))
-
-
-
-
-print()     
-
-
-# print(check_winner(xwins))
-# if check_winner(xwinsdiagonal) == "X":
-#     print("Correct outcome for xwins, congrats!")
-# else: 
-#     print("We're expecting X but you produced", check_winner(xwinsdiagonal))
-# print()
-# print(check_winner(owins))
-# if check_winner(owins) == "O":
-#     print("Correct outcome for Owins, congrats!")
-# else:
-#     print("We're expecting O but you produced", check_winner(owins))
-# print()
-# # print(check_winner(nowins))
-# if check_winner(nowins) == None:
-#     print("Correct outcome for Nowins, congrats!")
-# else:
-#     print("We're expecting None but you produced", check_winner(nowins))
-# print()
-# # print(check_winner(XwinsVertical))
-# if check_winner(XwinsVertical) == "X": 
-#     print("Correct outcome for xwinsVertical, congrats!")
-# else:
-#     print("We're expecting O but you produced", check_winner(XwinsVertical))
-# print()
-# if check_winner(owinsdiagonal) == "O":
-#     print("Correct outcome for Owins, congrats!")
-# else:
-#     print("We're expecting O but you produced", check_winner(owinsdiagonal))
-
+# Here are some unit tests I did to compare my code's output to the expected output 
+# output for each scenario. 
 
 class TestConnect4(unittest.TestCase):
     def test_O_wins_horizontal(self):
@@ -154,6 +105,17 @@ class TestConnect4(unittest.TestCase):
             ("X" , "O" , "O" , "O" , None, None, None),
             ("O" , "O" , "O" , "X" , "O" , None, None),
             ("O" , "X" , "X" , "O" , "X" , None, None))
+
+        self.assertEqual("X", check_winner(xwins))
+
+    def test_X_wins_horizontal_on_the_bottom(self):
+        xwins = (
+            (None, None, None, None, None, None, None),
+            (None, None, None, None, None, None, None),
+            (None, None, None, None, None, None, None),
+            (None, None, None, None, None, None, None),
+            ("X" , "X" , "X" , "X" , None, None, None)
+        )
 
         self.assertEqual("X", check_winner(xwins))
 
