@@ -37,43 +37,39 @@
 #   Python "wraps around" and checks the last value. You
 #   may have to control for this.
 
-
+import unittest
 #Write your function here!
 def check_winner(game_moves):
-    print()
-    print("testing...")
-    print()
-    # x_moves_in_a_row = 0
-    # o_moves_in_a_row = 0
-    for row in game_moves:
-        for slot in range(0, len(row)-2):
-            print(row[slot], slot)
-            if slot >= 4:
+
+    for row in range(0, len(game_moves)):
+        # print(game_moves[row])
+        for column in range(0, len(game_moves[row])):
+            print("Current slot:", game_moves[row][column])
+
+            if game_moves[row][column] == None:
+                print("Its a None, just ignore")
                 continue
-            elif row[slot] == "X":
-                if row[slot +1] == "X" and row[slot +2] == "X" and row[slot +3] == "X":
-                    return "X"
-            elif row[slot] == "O":
-                if row[slot +1] == "O" and row[slot +2] == "O" and row[slot +3] == "O":
-                    return "O"
 
+            elif column <= 3 and row <= 2:
+                if game_moves[row][column] == game_moves[row][column + 1] == game_moves[row][column +2] == game_moves[row][column +3]:
+                    print("Horizontal comparison")
+                    return game_moves[row][column]
 
+                elif game_moves[row][column] == game_moves[row+1][column] == game_moves[row +2][column] == game_moves[row + 3][column]:
+                    print("Vertical comparison")
+                    return game_moves[row][column]
 
-            # print("Player:", slot, "plays")
-            # if slot == "X":
-            #     x_moves_in_a_row += 1
-            #     o_moves_in_a_row = 0
-            #     if x_moves_in_a_row == 4:
-            #         return "X"
-            # elif slot == "O":
-            #     o_moves_in_a_row += 1
-            #     x_moves_in_a_row = 0
-            #     if o_moves_in_a_row == 4:
-            #         return "O"
-            # else:
-            #     x_moves_in_a_row = 0
-            #     o_moves_in_a_row = 0
-            #     continue 
+                elif game_moves[row][column] == game_moves[row+1][column+1] == game_moves[row +2][column+2] == game_moves[row + 3][column +3]:
+                    print("Diagonal comparison from top left to bottom right")
+                    return game_moves[row][column]
+
+            elif column >= 4 and row <= 2:
+                print("Row is:", row, "and the column is", column)
+                if game_moves[row][column] == game_moves[row +1][column -1] == game_moves[row +2][column -2] == game_moves[row +3][column -3]:
+                    print("Diagonal comparison from top right to bottom left")
+                    return game_moves[row][column]
+
+                
 
 
 
@@ -82,27 +78,148 @@ def check_winner(game_moves):
 #The code below tests your function on three Connect-4
 #boards. Remember, the line breaks are not needed to create
 #a 2D tuple; they're used here just for readability.
-xwins = ((None, None, None, None, None, None, None),
-         (None, None, None, None, None, None, None),
-         (None, None, None, None, "X" , None, None),
-         (None, None, None, "X" , "O" , "O", None),
-         (None, "O" , "X" , "X" , "O" , "X", None),
-         ("O" , "X" , "O" , "O" , "O" , "X" , "X"))
-owins = ((None, None, None, None, None, None, None),
-         (None, None, None, None, None, None, None),
-         ("O" , "O" , "O" , "O" , None, None, None),
-         ("O" , "X" , "X" , "X" , None, None, None),
-         ("X" , "X" , "X" , "O" , "X" , None, None),
-         ("X" , "O" , "O" , "X" , "O" , None, None))
+
+
+
+
+
 nowins =(("X" , "X" , None, None, None, None, None),
          ("O" , "O" , None, None, None, None, None),
          ("O" , "X" , "O" , "O" , None, "O" , "O" ),
          ("O" , "X" , "X" , "X" , None, "X" , "X" ),
          ("X" , "X" , "X" , "O" , "X" , "X" , "O" ),
          ("X" , "O" , "O" , "X" , "O" , "X" , "O" ))
-         
-print(check_winner(xwins))
-print(check_winner(owins))
-print(check_winner(nowins))
 
 
+
+
+print()     
+
+
+# print(check_winner(xwins))
+# if check_winner(xwinsdiagonal) == "X":
+#     print("Correct outcome for xwins, congrats!")
+# else: 
+#     print("We're expecting X but you produced", check_winner(xwinsdiagonal))
+# print()
+# print(check_winner(owins))
+# if check_winner(owins) == "O":
+#     print("Correct outcome for Owins, congrats!")
+# else:
+#     print("We're expecting O but you produced", check_winner(owins))
+# print()
+# # print(check_winner(nowins))
+# if check_winner(nowins) == None:
+#     print("Correct outcome for Nowins, congrats!")
+# else:
+#     print("We're expecting None but you produced", check_winner(nowins))
+# print()
+# # print(check_winner(XwinsVertical))
+# if check_winner(XwinsVertical) == "X": 
+#     print("Correct outcome for xwinsVertical, congrats!")
+# else:
+#     print("We're expecting O but you produced", check_winner(XwinsVertical))
+# print()
+# if check_winner(owinsdiagonal) == "O":
+#     print("Correct outcome for Owins, congrats!")
+# else:
+#     print("We're expecting O but you produced", check_winner(owinsdiagonal))
+
+
+class TestConnect4(unittest.TestCase):
+    def test_O_wins_horizontal(self):
+        owins = ((None, None, None, None, None, None, None),
+            (None, None, None, None, None, None, None),
+            ("O" , "O" , "O" , "O" , None, None, None),
+            ("O" , "X" , "X" , "X" , None, None, None),
+            ("X" , "X" , "X" , "O" , "X" , None, None),
+            ("X" , "O" , "O" , "X" , "O" , None, None))
+
+        self.assertEqual("O", check_winner(owins))
+
+    def test_O_wins_horizontal_at_the_end(self):
+        owins = ((None, None, None, None, None, None, None),
+            (None, None, None, None, None, None, None),
+            (None, None, None, "O" , "O" , "O" , "O" ),
+            ("O" , "X" , "X" , "X" , None, None, None),
+            ("X" , "X" , "X" , "O" , "X" , None, None),
+            ("X" , "O" , "O" , "X" , "O" , None, None))
+
+        self.assertEqual("O", check_winner(owins))
+
+    def test_X_wins_horizontal(self):
+        xwins = ((None, None, None, None, None, None, None),
+            (None, None, None, None, None, None, None),
+            ("X" , "X" , "X" , "X" , None, None, None),
+            ("X" , "O" , "O" , "O" , None, None, None),
+            ("O" , "O" , "O" , "X" , "O" , None, None),
+            ("O" , "X" , "X" , "O" , "X" , None, None))
+
+        self.assertEqual("X", check_winner(xwins))
+
+    def test_x_wins_horizontal_right(self):
+        game_board = (
+            ('X', 'X', None, None, None, None, None), 
+            ('O', 'O', None, None, None, None, None), 
+            ('O', 'X', 'O', 'O', None, 'O', 'O'), 
+            ('O', 'X', 'X', 'X', 'X', 'X', 'X'), 
+            ('X', 'X', 'X', 'O', 'X', 'X', 'O'), 
+            ('X', 'O', 'O', 'X', 'O', 'X', 'O'))
+    
+        self.assertEqual("X", check_winner(game_board))
+
+    def test_X_wins_diagonal(self):
+        xwinsdiagonal = ((None, None, None, None, None, None, None),
+            (None, None, None, None, None, None, None),
+            (None, None, None, None, "X" , None, None),
+            (None, None, None, "X" , "O" , "O", None),
+            (None, "O" , "X" , "X" , "O" , "X", None),
+            ("O" , "X" , "O" , "O" , "O" , "X" , "X"))
+
+        self.assertEqual("X", check_winner(xwinsdiagonal))
+
+    def test_O_diagonal(self):
+        owinsdiagonal = ((None, "O", None, None, None, None, None), 
+            (None, None, "O", None, "X", "X", None), 
+            ("O", "X", None, "O", "X", None, "X"), 
+            ("X", "O", None, None, "O", "X", None), 
+            (None, None, None, "X" , "O" , "O", None), 
+            ("O" , "X" , "O" , "O" , "O" , "X" , "X"))
+
+        self.assertEqual("O", check_winner(owinsdiagonal))
+
+    def test_X_wins_vertical(self):
+        XwinsVertical =(
+            ("O" , "X" , None, None, None, None, None),
+            ("O" , "O" , None, None, None, None, None),
+            ("X" , "X" , "O" , "O" , None, "O" , "O" ),
+            ("X" , "X" , "X" , "X" , None, "X" , "X" ),
+            ("X" , "X" , "X" , "O" , "X" , "X" , "O" ),
+            ("X" , "O" , "O" , "X" , "O" , "X" , "O" ))
+        
+        self.assertEqual("X", check_winner(XwinsVertical))
+
+    def test_O_vertical(self):
+        OwinsVertical =(
+            ("X" , "O" , None, None, None, None, None),
+            ("X" , "X" , None, None, None, None, None),
+            ("O" , "O" , "X" , "X" , None, "X" , "X" ),
+            ("O" , "O" , "O" , "O" , None, "O" , "O" ),
+            ("O" , "O" , "O" , "X" , "O" , "O" , "X" ),
+            ("O" , "X" , "X" , "O" , "X" , "O" , "X" ))
+        
+        self.assertEqual("O", check_winner(OwinsVertical))
+
+    def test_for_no_wins(self):
+        nowins =(
+            ("X" , "X" , None, None, None, None, None),
+            ("O" , "O" , None, None, None, None, None),
+            ("O" , "X" , "O" , "O" , None, "O" , "O" ),
+            ("O" , "X" , "X" , "X" , None, "X" , "X" ),
+            ("X" , "X" , "X" , "O" , "X" , "X" , "O" ),
+            ("X" , "O" , "O" , "X" , "O" , "X" , "O" ))
+
+        self.assertEqual(None,check_winner(nowins))
+
+if __name__ == "__main__":
+    unittest.main()
