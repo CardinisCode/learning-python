@@ -74,15 +74,20 @@ def generate_name(filename, fullname):
     last_name_initial = last_name[0]
     superhero_full_name = ""
 
-    for letter, superhero_name in superhero_first_names.items():
-        if letter == first_name_initial:
-            superhero_full_name += superhero_name + " "
-    
-    for letter, superhero_name in superhero_last_names.items():
-        if letter == last_name_initial:
-            superhero_full_name += superhero_name
+    superhero_full_name += superhero_first_names[first_name_initial] + " "
+    superhero_full_name += superhero_last_names[last_name_initial]
 
     return superhero_full_name
+
+# Note to self:
+# I created my for loops to run from the top left of the tuple 
+# down to the bottom right, as I am working with pre-collected data
+# However if i was to create the actual game, including the player moves
+# I would actually run this loop in reverse
+# From the bottom up to the top row - to fit in with the how the game works
+
+# Peter actually created this game using classes and unittests. 
+
 
 
 #Below are some lines of code that will test your function.
