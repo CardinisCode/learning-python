@@ -65,9 +65,9 @@ def check_plagiarism(file1, file2):
     first_file_contents = unpack_a_files_contents_into_list(file1)
     second_file_contents = unpack_a_files_contents_into_list(file2)
 
-    comparing_two_files_for_plagiarism(first_file_contents, second_file_contents)
+    desired_string = comparing_two_files_for_plagiarism(first_file_contents, second_file_contents)
 
-    return "Checking"
+    return desired_string
 
 def comparing_two_files_for_plagiarism(first_file_contents, second_file_contents):
     if first_file_contents == second_file_contents:
@@ -81,78 +81,30 @@ def comparing_two_files_for_plagiarism(first_file_contents, second_file_contents
 
     first_list = first_file_contents.split(" ")
     second_list = second_file_contents.split(" ")
-    found_words = []
     search_string = ""
+    longest_string = ""
 
     for i in range(0, len(first_list)):
-        current_word = first_list[i]
+        # current_word = first_list[i]
         for j in range(0, len(second_list)):
-            comparison_word = second_list[j]
-            print("Our current word:", current_word, "vs our current comparison word", comparison_word)
+            current_index = 0
+            while first_list[i + current_index] == second_list[j + current_index] \
+             and current_index + i < len(first_list) and current_index + j < len(second_list):
+                if current_index == (len(first_list) -1):
+                    search_string += " " + first_list[i + current_index]
+                    break
+                else: 
+                    search_string += " " + first_list[i + current_index]
+                    current_index += 1
 
-            if current_word != comparison_word:
-                print("These 2 words don't match")
-                found_words = []
-                continue
-            else:
-                print("These words do match!", current_word, comparison_word)
-                print("next five words in our first list:", first_list[i:i+5])
-                print("The next 5 words in our second list:", second_list[j:j+5])
-                if first_list[i:i+5] == second_list[j:j+5]: 
-                    print("I found 5 words in a row!")
-                    for index in range(i, i + 5):
-                        print(first_list[index])
-                        if index == (i + 4):
-                            search_string += first_list[index]
-                            print("Our search string so far:", search_string)
-                        else:
-                            search_string += first_list[index] + " "
-                            print("Our search string so far:", search_string)
-                        # found_words.append(first_list[index])
-                    return search_string
-
-    # while starting_index <= len(first_list):
-    #     if first_list[starting_index] != second_list[starting_index]:
-    #         found_words = []
-
-
-    #     elif first_list[starting_index] == second_list[starting_index]:
-    #         found_words.append(first_list[starting_index])
-
-        
-
-
-
-
-
-
-
+            if search_string > longest_string: 
+                longest_string = search_string
+                search_string = ""
+    
+    if len(longest_string) >=1:
+        return longest_string.lstrip()
+     
     return False
-    
-
-    
-    # index_of_found_word = 0
-    # found_words = []
-    # for i in range(0, len(first_file)-4):
-    #     current_word = first_file[i]
-    #     for j in range(0, len(second_file)-4):
-    #         comparison_word = second_file[i]
-    #         if current_word != comparison_word:
-    #             found_words = []
-    #             continue
-    #         else:
-    #             index_of_found_word = j
-    #             found_words.append(current_word)
-                
-
-
-
-
-
-
-
-
-
 
 #Below are some lines of code that will test your function.
 #You can change the value of the variable(s) to test your
@@ -211,22 +163,22 @@ class CheckPlagiarism(unittest.TestCase):
         print("-------------------------------------------------------")
         contents_1 = "my delightful happy dogs live free today in our yard"
         contents_2 = "Our happy dogs live free today in our grand garden"
-        expected = "happy dogs live free today"
+        expected = "happy dogs live free today in our"
 
         actual = comparing_two_files_for_plagiarism(contents_1, contents_2)
 
         print("-------------------------------------------------------")
         self.assertEqual(expected, actual)
 
-    # def test_compare_file_one_with_file_two(self):
-    #     self.assertEqual("if i go crazy then", check_plagiarism("file_1.txt", "file_2.txt"))
+    def test_compare_file_one_with_file_two(self):
+        self.assertEqual("if i go crazy then", check_plagiarism("file_1.txt", "file_2.txt"))
 
-    # def test_compare_file_one_with_file_three(self):
-    #     self.assertEqual("i left my body lying somewhere in the sands of time", 
-    #     check_plagiarism("file_1.txt", "file_3.txt"))
+    def test_compare_file_one_with_file_three(self):
+        self.assertEqual("i left my body lying somewhere in the sands of time", 
+        check_plagiarism("file_1.txt", "file_3.txt"))
 
-    # def test_compare_file_two_with_file_three(self):
-    #     self.assertEqual(False, check_plagiarism("file_2.txt", "file_3.txt"))
+    def test_compare_file_two_with_file_three(self):
+        self.assertEqual(False, check_plagiarism("file_2.txt", "file_3.txt"))
 
 
 
