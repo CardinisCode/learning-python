@@ -14,52 +14,23 @@ Most of our course, we've focused on writing general functions that transform so
 
 For the next three questions, instead of asking you to write code that accomplishes a certain goal, we're going to ask you to answer specific questions. These questions can only be answered by writing code to explore a particular dataset. Generally, you'll write code that generates an answer for you to read, and then you'll just copy the answer into the problems below.
 
-Q1: Who was the first team Georgia Tech ever played against?
-My Answer #1: Georgia - Wrong!
-My Answer #2: 'Auburn' - Correct!
 
-Q2: How many points has Georgia Tech scored all-time against Auburn?
-#My Answer #1: 950 - Wrong
-My Answer #2: 1327 - Correct!
 
-Q3: How many points has Auburn scored all-time against Georgia Tech?
-#My Answer #1: 880 - Wrong!
-My Answer #2: 1143 - Correct!
 
-Q4: What is Georgia Tech's all-time record in home games? Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
-My Answer #1: 15328-5318-217 - Wrong!
-My Answer #2: 21077-11874-289 - Wrong!
-My Answer #3: 722-475-289 - Wrong!
-My Answer #4: 513-226-27 - Correct!
 
-Q5: What was Georgia Tech's record in all games played in the 2009 calendar year? Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
-My Answer #1: 418-87-0 - Wrong
-My Answer #2: 12312-10871-172 - Wrong!
-My Answer #3: 11-3-0 - Correct!
 
-Q6: What is Georgia Tech's all-time record in the month of October? Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
-My Answer #1: 8746-4348-67 - Wrong!
-My Answer #2: 411080-323558-4970 - Wrong!
-My Answer #3: 302-177-10 - Correct!
 
-#Q7: Georgia Tech played in the SEC from 1933 to 1963. What was its record during this time? Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
-#My Answer #1: 4886-2008-62 - Wrong!
-My Answer #2: 280767-240992-3199 - Wrong!
-My Answer #3: 206-110-12 - Correct!
 
-#Q8: Against what team has Georgia Tech scored the most points?
-#My Answer: 'Duke' - Correct!
 
-#Q9: What is one of the two teams that Georgia Tech has played, and yet has never scored any points against? Name either team
-#My Answer #1: 'Utah' - Wrong!
-My Answer #2: Carnegie Tech - Correct!
 
-#Q10: How many teams has played Georgia Tech and never scored a point?
-My Answer #1: 226 - Wrong!
-My Answer #2: 11 - Correct!
 
-Q11: Against what team does Georgia Tech have the highest scoring differential (points for minus points against) all-time?
-My Answer: 'Tulane' - Correct!
 
-Q12: Among teams that Georgia Tech has played at least 5 times, against which team does Georgia Tech have the highest average score differential (points for minus points against, divided by number of games)?
-My Answer: 'Furman' - Correct!
+
+
+
+
+
+
+
+
+
