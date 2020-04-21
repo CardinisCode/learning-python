@@ -54,6 +54,7 @@ def import_file_contents_into_dictionary(file_contents):
 
     return georgia_tournament_played
 
+
 def unpack_file_contents(filename):
     record_file = open(filename, "r")
     # record_file = open('../resource/lib/public/georgia_tech_football.csv', 'r')
@@ -61,6 +62,7 @@ def unpack_file_contents(filename):
     record_file.close()
 
     return file_contents
+
 
 def first_team_Georgia_played_against(file_contents):
     first_team = ""
@@ -100,6 +102,7 @@ def points_scored_all_time_against_auburn(georgia_score_table):
 def overall_points_scored_by_auburn_against_GT(georgia_score_table):
     return georgia_score_table["Auburn"]['Total Points Lost by GT']
 
+
 def georgia_techs_all_time_record_in_home_games(file_contents):
     total_home_games = 0
     games_won = 0
@@ -123,6 +126,7 @@ def georgia_techs_all_time_record_in_home_games(file_contents):
 
     all_time_record_for_home = str(games_won) + "-" + str(games_lost) + "-" + str(games_tied)
     return all_time_record_for_home
+
 
 def georgia_techs_all_time_record_2009(file_contents):
     total_home_games = 0
@@ -152,6 +156,7 @@ def georgia_techs_all_time_record_2009(file_contents):
         return overall_time_record_for_2009
     return "Keep trying..."
 
+
 def georgia_techs_all_time_score_for_games_in_october(file_contents, georgia_score_table):
     total_october_games = 0
     games_won = 0
@@ -179,6 +184,7 @@ def georgia_techs_all_time_score_for_games_in_october(file_contents, georgia_sco
     if (games_won + games_lost + games_tied) == total_october_games:
         return overall_time_record_for_october
     return "Keep trying..."
+
 
 def georgia_techs_record_from_1933_to_1963(file_contents, georgia_score_table):
     total_games = 0
@@ -208,6 +214,7 @@ def georgia_techs_record_from_1933_to_1963(file_contents, georgia_score_table):
         return overall_time_record
     return "Keep trying..."
 
+
 def against_which_team_georgia_tech_scored_the_most_points(georgia_score_table):
     opponent_with_most_losses_against_GT = ""
     highest_points = 0
@@ -220,11 +227,13 @@ def against_which_team_georgia_tech_scored_the_most_points(georgia_score_table):
 
     return opponent_with_most_losses_against_GT
 
+
 def find_teams_georgia_tech_has_never_won_points_against(georgia_score_table):
     for opponent in georgia_score_table.keys():
         points_won_by_GT = georgia_score_table[opponent]['Total Points Won by GT']
         if points_won_by_GT == 0:
             return opponent
+
 
 def number_of_teams_have_never_scored_a_point_against_GT(georgia_score_table):
     number_of_teams = 0
@@ -233,6 +242,7 @@ def number_of_teams_have_never_scored_a_point_against_GT(georgia_score_table):
         if points_lost_by_GT == 0:
             number_of_teams += 1
     return number_of_teams
+
 
 def find_team_GT_has_the_alltime_highest_scoring_differential_against(georgia_score_table):
     highest_differential = 0
@@ -248,6 +258,7 @@ def find_team_GT_has_the_alltime_highest_scoring_differential_against(georgia_sc
 
     return team_with_highest_differential
 
+
 def find_team_GT_has_the_highest_avg_score_differential_against(georgia_score_table):
     highest_average_differential = 0
     team_with_highest_avg_differential = ""
@@ -259,7 +270,6 @@ def find_team_GT_has_the_highest_avg_score_differential_against(georgia_score_ta
             highest_average_differential = average_score_differential
             team_with_highest_avg_differential = opponent
     return team_with_highest_avg_differential
-
 
 
 file_contents = unpack_file_contents("completefile.csv")
