@@ -280,9 +280,8 @@ first_team = first_team_Georgia_played_against(file_contents)
 print("Question #1: Who was the first team Georgia Tech ever played against?")
 print()
 print("Answer #1:", first_team)
-print("Expected Answer: Auburn")
-expected_answer = "Auburn"
-if first_team == expected_answer:
+expected_answer_1 = "Auburn"
+if first_team == expected_answer_1:
     print("Correct Answer!")
 
 # My Answers for #1: 
@@ -295,7 +294,10 @@ total_points_scored_against_auburn = points_scored_all_time_against_auburn(georg
 print("Question #2: How many points has Georgia Tech scored all-time against Auburn?")
 print()
 print("Answer #2:", total_points_scored_against_auburn)
-print("Expected Answer: 1327")
+expected_answer_2 = "1327"
+if total_points_scored_against_auburn == expected_answer_2:
+    print("Correct Answer!")
+
 
 # #My Answers for #2:
 # Attempt #1: 950 - Wrong
@@ -306,7 +308,10 @@ print()
 overall_points_lost_in_games_played_against_auburn = overall_points_scored_by_auburn_against_GT(georgia_score_table)
 print("Question #Q3: How many points has Auburn scored all-time against Georgia Tech?")
 print("Answer #3:", overall_points_lost_in_games_played_against_auburn)
-print("Expected Answer: 1143")
+
+expected_answer_3 = "1143"
+if overall_points_lost_in_games_played_against_auburn == expected_answer_3:
+    print("Correct Answer!")
 
 #My Answer for #3: 
 # Attempt #1: 880 - Wrong!
@@ -317,7 +322,10 @@ total_points_for_georgia_Tech_at_home = georgia_techs_all_time_record_in_home_ga
 print("Question #4: What is Georgia Tech's all-time record in home games? Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.")
 print()
 print("Answer #4:", total_points_for_georgia_Tech_at_home)
-print("Expected Answer: 513-226-27")
+
+expected_answer_4 = "513-226-27"
+if total_points_for_georgia_Tech_at_home == expected_answer_4:
+    print("Correct Answer!")
 
 #My attempts for #4:
 #1: 15328-5318-217 - Wrong!
@@ -331,7 +339,10 @@ georgia_techs_all_time_scores_for_2009 = georgia_techs_all_time_record_2009(file
 print("Question #5: What was Georgia Tech's record in all games played in the 2009 calendar year? Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.")
 print()
 print("Answer #5:", georgia_techs_all_time_scores_for_2009)
-print("Expected Answer: 11-3-0")
+
+expected_answer_5 = "11-3-0"
+if georgia_techs_all_time_scores_for_2009 == expected_answer_5:
+    print("Correct Answer!")
 
 # My attempts for #5:
 #1: 418-87-0 - Wrong
@@ -344,7 +355,9 @@ georgia_techs_all_time_scores_for_october = georgia_techs_all_time_score_for_gam
 print("Question #6: What is Georgia Tech's all-time record in the month of October? Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.")
 print()
 print("Answer #6:", georgia_techs_all_time_scores_for_october)
-print("Expected Answer: 302-177-10")
+expected_answer_6 = "302-177-10"
+if georgia_techs_all_time_scores_for_october == expected_answer_6:
+    print("Correct Answer!")
 
 # My attempts for #6:
 #1: 8746-4348-67 - Wrong!
@@ -357,7 +370,9 @@ georgia_techs_all_time_scores_1933_to_1963 = georgia_techs_record_from_1933_to_1
 print("Question #7: Georgia Tech played in the SEC from 1933 to 1963. What was its record during this time? Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.")
 print()
 print("Answer #7:", georgia_techs_all_time_scores_1933_to_1963)
-print("Expected Answer: 206-110-12 ")
+expected_answer_7 = "206-110-12"
+if georgia_techs_all_time_scores_1933_to_1963 == expected_answer_7:
+    print("Correct Answer!")
 
 #My attempts for #7:
 #1: 4886-2008-62 - Wrong!
@@ -371,6 +386,9 @@ print("Question #8: Against what team has Georgia Tech scored the most points?")
 print()
 print("Answer #8:", opponent_georgia_tech_scored_most_points_against)
 print("Expected Answer: Duke")
+expected_answer_8 = "Duke"
+if opponent_georgia_tech_scored_most_points_against == expected_answer_8:
+    print("Correct Answer!")
 
 # My attempts for #8:
 #1: 'Duke' - Correct!
@@ -393,7 +411,10 @@ no_of_teams_have_never_scored_a_point_against_GT = number_of_teams_have_never_sc
 print("Question #10: How many teams has played Georgia Tech and never scored a point?")
 print()
 print("Answer #10:", no_of_teams_have_never_scored_a_point_against_GT)
-print("Expected Answer: 11")
+
+expected_answer_10 = "11"
+if no_of_teams_have_never_scored_a_point_against_GT == expected_answer_10:
+    print("Correct Answer!")
 
 # My attempts for #10:
 #1: 226 - Wrong!
@@ -406,6 +427,9 @@ print("Question #11: Against what team does Georgia Tech have the highest scorin
 print()
 print("Answer #11:", team_GT_has_highest_scoring_differential_against)
 print("Expected Answer: Tulane")
+expected_answer_11 = "Tulane"
+if team_GT_has_highest_scoring_differential_against == expected_answer_11:
+    print("Correct Answer!")
 
 # My attempts for #11: 
 #1: 'Tulane' - Correct!
@@ -417,6 +441,9 @@ print("Question #12: Among teams that Georgia Tech has played at least 5 times, 
 print()
 print("Answer #12:", team_GT_has_the_highest_avg_score_differential_against)
 print("Expected Answer: Furman")
+expected_answer_12 = "Furman"
+if team_GT_has_the_highest_avg_score_differential_against == expected_answer_12:
+    print("Correct Answer!")
 
 # My attempts for #12:
 #1: 'Furman' - Correct!
