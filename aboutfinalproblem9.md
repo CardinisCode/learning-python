@@ -47,19 +47,42 @@ A4: Using sample subset: Blastoise
 A4: Using their file: Shuckle
 
 
-
 Q5: Among Legendary Pokemon, what is the most common type? Include both Type1 and Type2 in your count.
+A5: Using sample subset: Bug
+A5: Using their file: Psychic
+
 
 Q6: In terms of the sum of all six stats (HP, Attack, Defense, Special Attack, Special Defense, and Speed), what is the weakest Legendary Pokemon? If there is a tie, list any of the tying Pokemon.
+A6: Using sample subset: Legendary Caterpie
+A6: Using their file: Cosmog
+
 
 Q7: In terms of the sum of all six stats (HP, Attack, Defense, Special Attack, Special Defense, and Speed), what is the strongest non-Legendary, non-Mega Pokemon? If there is a tie, list any of the tying Pokemon.
+A7: Using sample subset: Charizard
+A7: Using their file: Slaking
+
 
 Q8: What type has the highest average Speed statistic? Include both Type1 and Type2 in your calculation.
+A8: Using sample subset: Dragon
+A8: Using their file: Flying
+
 
 Q9: Rounded to the nearest integer, what is that highest average Speed statistic? Include both Type1 and Type2 in your calculation.
+A9: Using sample subset: 100
+A9: Using their file: 85
+
 
 Q10: Among all 7 Pokemon generations, which generation had the highest average sum of all six stats (HP, Attack, Defense, Special Attack, Special Defense, and Speed)?
+A10: Using sample subset: 4
+A10: Using their file: 7
+
 
 Q11: Rounded to the nearest integer, how much higher was that statistic than the next-closest generation's average sum of all six stats (HP, Attack, Defense, Special Attack, Special Defense, and Speed)?
+A11: Using sample subset: 197
+A11: Using their file: 2
+
+
 
 Q12: Rounded to the nearest integer, how much higher is the average sum of all six stats among Mega Pokemon than their non-Mega versions? Note that Mega Pokemon share the same Number (the first column) as their non-Mega versions, which will allow you to find all Pokemon that have a Mega version.
+A12: Using sample subset: 
+A12: Using their file: 
