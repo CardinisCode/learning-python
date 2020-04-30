@@ -301,7 +301,6 @@ def find_generation_with_highest_avg_total(generational_dict):
     for generation in generational_dict.keys():
         average_power = generational_dict[generation]["Average Power"]
         if not generation == generation_with_highest_avg_total:
-            print(generation, ":", average_power)
             if second_highest_avg == None or average_power > second_highest_avg: 
                 second_highest_avg = average_power
 
@@ -310,14 +309,75 @@ def find_generation_with_highest_avg_total(generational_dict):
     return (generation_with_highest_avg_total, difference_between_avgs)
 
 
-# Q12: Rounded to the nearest integer, 
-# how much higher is the average sum of all six stats among Mega Pokemon 
-# than their non-Mega versions? Note that Mega Pokemon share the same Number 
-# (the first column) as their non-Mega versions, 
-# which will allow you to find all Pokemon that have a Mega version.
+def create_mega_vs_non_mega_dict(my_pokemon_collection):
+    mega_vs_non_mega_dict = {}
+    mega_vs_non_mega_dict["Mega"] = {
+        "Total Power": 0, 
+        "Total Count": 0, 
+        "Avg Power": 0.0, 
+    }
+    mega_vs_non_mega_dict["Non-Mega"] = {
+        "Total Power": 0,
+        "Total Count": 0,
+        "Avg Power": 0.0,
+    }
+    pokemon_by_ID_dict = {}
+
+    for pokemon in my_pokemon_collection.values():
+        pokemon_name = pokemon.name
+        pokemon_ID = pokemon.id
+        total_power = pokemon.get_total_power()
+        
+        if pokemon.legendary == "TRUE":
+            continue
+        if not pokemon_ID in pokemon_by_ID_dict.keys():
+            pokemon_by_ID_dict[pokemon_ID] = []
+        
+        pokemon_by_ID_dict[pokemon_ID].append(pokemon_name)
+        
+    for pokemon_names in pokemon_by_ID_dict.values():
+        filter_names = []
+        for name in pokemon_names:
+            if my_pokemon_collection[name].mega == "TRUE":
+                filter_names.append(name)
+
+        #Alternative code for this above for-loop:
+        # filter_names = [x for x in pokemon_names if x.startswith("Mega")]
+
+        if len(filter_names) >= 1:
+            local_mega = 0
+            local_norm = 0
+            for name in pokemon_names:
+                
+                total_power = my_pokemon_collection[name].get_total_power()
+                if my_pokemon_collection[name].mega == "TRUE": 
+                    local_mega += total_power
+                    mega_vs_non_mega_dict["Mega"]["Total Power"] += total_power
+                    mega_vs_non_mega_dict["Mega"]["Total Count"] += 1
+                else: 
+                    local_norm += total_power
+                    mega_vs_non_mega_dict["Non-Mega"]["Total Power"] += total_power
+                    mega_vs_non_mega_dict["Non-Mega"]["Total Count"] += 1
+    
+    non_mega_total_power = mega_vs_non_mega_dict["Non-Mega"]["Total Power"]
+    non_mega_total_count = mega_vs_non_mega_dict["Non-Mega"]["Total Count"]
+    non_mega_average = non_mega_total_power / non_mega_total_count
+    mega_vs_non_mega_dict["Non-Mega"]["Avg Power"] = non_mega_average
+
+    mega_total_power = mega_vs_non_mega_dict["Mega"]["Total Power"]
+    mega_total_count = mega_vs_non_mega_dict["Mega"]["Total Count"]
+    mega_average = mega_total_power / mega_total_count
+    mega_vs_non_mega_dict["Mega"]["Avg Power"] = mega_average
+
+    return mega_vs_non_mega_dict
 
 
+def find_power_difference_mega_vs_non_mega(mega_vs_non_mega_dict):
+    non_mega_average = mega_vs_non_mega_dict["Non-Mega"]["Avg Power"]
+    mega_average = mega_vs_non_mega_dict["Mega"]["Avg Power"]
+    power_difference = int(mega_average - non_mega_average)
 
+    return power_difference
 
 
 class Pokemon:
@@ -368,7 +428,9 @@ highest_avg_speed = find_type_with_highest_avg_speed(type_dict_with_speed_and_oc
 generational_dict = create_dict_by_generation(my_pokemon_collection)
 generation_with_highest_avg_total = find_generation_with_highest_avg_total(generational_dict)[0]
 difference_between_averages = find_generation_with_highest_avg_total(generational_dict)[1]
-print(difference_between_averages)
+mega_vs_non_mega_dict = create_mega_vs_non_mega_dict(my_pokemon_collection)
+power_difference_mega_vs_non_mega = find_power_difference_mega_vs_non_mega(mega_vs_non_mega_dict)
+print(power_difference_mega_vs_non_mega)
 
 # Rounded to the nearest integer, 
 # how much higher was that statistic than the next-closest generation's average sum
@@ -441,6 +503,12 @@ class CheckMyPokemonCollection(unittest.TestCase):
     def test_find_diff_between_avgs(self):
         expected = 197
         actual = difference_between_averages
+        self.assertEqual(expected, actual)
+
+
+    def test_power_difference_mega_vs_non_mega(self):
+        expected = 107
+        actual = power_difference_mega_vs_non_mega
         self.assertEqual(expected, actual)
 
 
