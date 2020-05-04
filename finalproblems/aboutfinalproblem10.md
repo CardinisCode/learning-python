@@ -20,11 +20,11 @@ When decrypting the message,
 #
 #To encrypt a message:
 
-#-    1 ) first remove all non-letters
+#-    1 ) first remove all non-letters - DONE
 
-#-    2 ) convert the entire message to the same case.
+#-    2 ) convert the entire message to the same case. - DONE
 
-#-    3 ) we break the message into pairs. 
+#-    3 ) we break the message into pairs.  DONE
 # EG: imagine we wanted to encrypt the message 
 # "PS. Hello, worlds". 
 # First: we could convert it to PSHELLOWORLDS
@@ -32,7 +32,7 @@ When decrypting the message,
 # PS HE LL OW OR LD S. 
 # 
 #- If there is an odd number of characters: 
-#-    we add X to the end.
+#-    we add X to the end. - DONE
 #
 #-    4 ) for each pair of letters: 
 #-          we locate both letters in the cipher square. 
@@ -108,9 +108,10 @@ Except:
 # - Remove all non-letter characters.
 # - 
 # - Break the string into character pairs.
+# - Add an X to the end if the length if odd
 # - Replace the second letter of any same-character
 #   pair with X (e.g. LL -> LX).
-#   Add an X to the end if the length if odd.
+#   .
 # - Encrypt it.
 #
 -   decrypt should:
@@ -157,3 +158,9 @@ CIPHER = (("D", "A", "V", "I", "O"),
 #print: QLGRQTVZIBTYQZ, then PSHELXOWORLDSX
 print(encrypt("PS. Hello, world"))
 print(decrypt("QLGRQTVZIBTYQZ"))
+
+
+
+# "PS. Hello, world"
+# PS HE LL OW OR LD
+# QL GR QT VZ IB TY QZ
