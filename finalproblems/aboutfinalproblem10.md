@@ -111,8 +111,7 @@ Except:
 # - Add an X to the end if the length if odd
 # - Replace the second letter of any same-character
 #   pair with X (e.g. LL -> LX).
-#   .
-# - Encrypt it.
+
 #
 -   decrypt should:
         take as input a string and
