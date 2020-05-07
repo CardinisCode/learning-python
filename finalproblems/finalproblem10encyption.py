@@ -19,11 +19,9 @@ def clean_my_string(message_to_encryp):
 
     return updated_string
 
-
 # - Break the string into character pairs. - DONE
 
 
- 
 def break_my_message_down_into_char_pairs(my_message):
     structured_message = ""
 
@@ -89,8 +87,9 @@ def process_row_case_switch_for_encryption(character_pair):
         current_row = CIPHER[index_row]
         for index_column in range(0, len(current_row)):
             current_letter = current_row[index_column]
+
             if current_letter == first_letter:
-                cipher_letter = CIPHER[index_row][index_column + 1]
+                cipher_letter = CIPHER[index_row][(index_column +1) % 5]
                 updated_pair += cipher_letter
 
     for index_row in range(0, len(CIPHER)):
@@ -99,10 +98,7 @@ def process_row_case_switch_for_encryption(character_pair):
             current_letter = current_row[index_column]
     
             if current_letter == second_letter:
-                if index_column == len(current_row)-1:
-                    cipher_letter = CIPHER[index_row][0]
-                else:
-                    cipher_letter = CIPHER[index_row][index_column + 1]
+                cipher_letter = CIPHER[index_row][(index_column +1) % 5]
                 updated_pair += cipher_letter
 
     return updated_pair
@@ -157,6 +153,7 @@ def process_rectangle_case_switch(current_pair):
             first_letter_row = index_row
             for index_column in range(0, len(current_row)):
                 current_letter = current_row[index_column]
+
                 if current_letter == first_letter:
                     first_letter_column = index_column
 
@@ -166,6 +163,7 @@ def process_rectangle_case_switch(current_pair):
             second_letter_row = index_row
             for index_column in range(0, len(current_row)):
                 current_letter = current_row[index_column]
+
                 if current_letter == second_letter:
                     second_letter_column = index_column
     

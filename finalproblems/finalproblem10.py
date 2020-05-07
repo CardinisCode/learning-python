@@ -92,10 +92,7 @@ def process_row_case_switch_for_encryption(character_pair):
             current_letter = current_row[index_column]
     
             if current_letter == second_letter:
-                if index_column == len(current_row)-1:
-                    cipher_letter = CIPHER[index_row][0]
-                else:
-                    cipher_letter = CIPHER[index_row][(index_column +1) % 5]
+                cipher_letter = CIPHER[index_row][(index_column +1) % 5]
                 updated_pair += cipher_letter
 
     return updated_pair
@@ -228,13 +225,7 @@ def process_row_case_switch_for_decrypt(character_pair):
         for index_column in range(0, len(current_row)):
             current_letter = current_row[index_column]
             if current_letter == second_letter:
-                print(current_letter, ":", index_column)
-                if index_column == 0:
-                    cipher_letter = CIPHER[index_row][(index_column - 1) %5]
-                else:
-                    cipher_letter = CIPHER[index_row][(index_column - 1) %5]
-                    print("cipher_letter",cipher_letter, "vs current_letter:", current_letter)
-
+                cipher_letter = CIPHER[index_row][(index_column - 1) %5]
                 updated_pair += cipher_letter
 
     return updated_pair

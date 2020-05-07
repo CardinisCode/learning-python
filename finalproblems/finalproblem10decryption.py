@@ -21,7 +21,7 @@ CIPHER = (("D", "A", "V", "I", "O"),
           ("T", "U", "W", "X", "Z"))
 
 
-def process_row_case_switch(character_pair):
+def process_row_case_switch_for_decrypt(character_pair):
     updated_pair = ""
     first_letter = character_pair[0]
     second_letter = character_pair[1]
@@ -31,7 +31,7 @@ def process_row_case_switch(character_pair):
         for index_column in range(0, len(current_row)):
             current_letter = current_row[index_column]
             if current_letter == first_letter:
-                cipher_letter = CIPHER[index_row][index_column - 1]
+                cipher_letter = CIPHER[index_row][(index_column - 1) %5]
                 updated_pair += cipher_letter
 
     for index_row in range(0, len(CIPHER)):
@@ -39,10 +39,7 @@ def process_row_case_switch(character_pair):
         for index_column in range(0, len(current_row)):
             current_letter = current_row[index_column]
             if current_letter == second_letter:
-                if index_column == len(current_row)-1:
-                    cipher_letter = CIPHER[index_row][0]
-                else:
-                    cipher_letter = CIPHER[index_row][index_column - 1]
+                cipher_letter = CIPHER[index_row][(index_column - 1) %5]
                 updated_pair += cipher_letter
 
     return updated_pair
@@ -213,7 +210,7 @@ class CheckMyDecryption(unittest.TestCase):
 
     def test_row_case_switch(self):
         expected = "PS"
-        actual = process_row_case_switch("QL")
+        actual = process_row_case_switch_for_decrypt("QL")
         self.assertEqual(expected, actual)   
 
 
