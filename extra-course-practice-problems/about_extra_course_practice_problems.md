@@ -12,3 +12,4 @@ There are 27 problems aimed at helping me practice for their test.
 7) Right Triangle
 8) Class Average
 9) FibMult numbers
+10) Inverted Sort
