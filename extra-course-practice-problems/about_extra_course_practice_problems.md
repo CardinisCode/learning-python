@@ -1,6 +1,7 @@
 About Extra Course Practice Problems:
 
 There are 27 problems aimed at helping me practice for their test. 
+(They're not graded but rather just extra practice for the test)
 
 1) PingPong
 2) Counting Evens
