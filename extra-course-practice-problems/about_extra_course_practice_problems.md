@@ -13,3 +13,6 @@ There are 27 problems aimed at helping me practice for their test.
 8) Class Average
 9) FibMult numbers
 10) Inverted Sort
+11) check_attendance
+12) Rectangle class
+13) 

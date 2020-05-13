@@ -1,3 +1,6 @@
-random_number = 1
-random_number = float(random_number)
-print(random_number)
+line1 = "Happy"
+line2 = "Dog"
+if line1 > line2:
+    print(line1, "is bigger than", line2)
+else: 
+    print(line2, "is bigger than", line1)
