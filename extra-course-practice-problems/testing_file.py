@@ -1,6 +1,3 @@
-line1 = "Happy"
-line2 = "Dog"
-if line1 > line2:
-    print(line1, "is bigger than", line2)
-else: 
-    print(line2, "is bigger than", line1)
+one_shot = 0.35
+large_cup = 4.50
+print(large_cup + (one_shot * 3))
