@@ -1,3 +1,4 @@
-one_shot = 0.35
-large_cup = 4.50
-print(large_cup + (one_shot * 3))
+import math
+
+one_shot = 25
+print(math.sqrt(one_shot))

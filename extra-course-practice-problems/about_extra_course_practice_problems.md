@@ -18,3 +18,4 @@ There are 27 problems aimed at helping me practice for their test.
 13) FrapOrder
 14) is_authorized
 15) check_volleyball_winner
+16) count_squares
