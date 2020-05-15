@@ -23,7 +23,6 @@ import math
 print()
 #Write your function here!
 def count_squares(number_list):
-    print("starting off:", number_list)
     number_of_squares = 0
 
     for i in number_list:
