@@ -25,4 +25,4 @@ There are 27 problems aimed at helping me practice for their test.
 20) copy_pointlessly
 21) sufficient_inventory
 22) check_uno_winner
-
+23) finding the The Greatest Common Factor (GCF)

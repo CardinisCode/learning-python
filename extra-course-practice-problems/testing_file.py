@@ -3,14 +3,16 @@
 
 
 
-def foo(input):
-    reverse = ""
-    for i in range(len(input) - 1, -1, -1):
-        reverse += input[i]
+random_number = 18
+gcf = 5
 
-    if reverse == input:
-        return input
-    return "%s%s" % (input, reverse)
+print("random_number / gcf:", random_number / gcf)
+print((random_number / gcf) %2)
 
-print(foo("Madam in Eden, I'm Adam"))
-print(foo("boba"))
+
+
+
+# if (48 / gcf) %2 == 0:
+#     print("True!")
+# else:
+#     print("False")
