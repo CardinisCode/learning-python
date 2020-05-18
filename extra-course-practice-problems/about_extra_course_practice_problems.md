@@ -21,3 +21,4 @@ There are 27 problems aimed at helping me practice for their test.
 16) count_squares
 17) create_palindrome
 18) negate_list
+19) fib_skip

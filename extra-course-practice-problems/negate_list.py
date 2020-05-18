@@ -65,5 +65,7 @@ class TestNegateList(unittest.TestCase):
         expected = [-1.0, -2.0, -3.0, 4.0]
         actual = negate_list([1.0, -2.0, -3.0, 4.0], [0, 2, 2])
 
+        self.assertEqual(expected, actual)
+
 if __name__ == "__main__":
     unittest.main()
