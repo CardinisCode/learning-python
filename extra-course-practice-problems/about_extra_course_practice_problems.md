@@ -22,3 +22,5 @@ There are 27 problems aimed at helping me practice for their test.
 17) create_palindrome
 18) negate_list
 19) fib_skip
+20) copy_pointlessly
+21) sufficient_inventory

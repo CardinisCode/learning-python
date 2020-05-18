@@ -1,0 +1,4 @@
+TEST @N @, TEST @N @
+TEST @N 0, TEST @N 0
+TEST @N |\/|, TEST @N |\/|
+TEST @ \/\/, TEST @ \/\/
