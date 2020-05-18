@@ -3,11 +3,8 @@
 
 
 
-random_number = 18
-gcf = 5
+word = "pig"
 
-print("random_number / gcf:", random_number / gcf)
-print((random_number / gcf) %2)
 
 
 

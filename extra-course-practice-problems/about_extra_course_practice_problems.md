@@ -27,4 +27,5 @@ There are 27 problems aimed at helping me practice for their test.
 22) check_uno_winner
 23) finding the The Greatest Common Factor (GCF)
 24) to_pig_latin
+25) delete_from_list
 
