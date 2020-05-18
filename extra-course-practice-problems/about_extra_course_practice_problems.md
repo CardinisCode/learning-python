@@ -20,3 +20,4 @@ There are 27 problems aimed at helping me practice for their test.
 15) check_volleyball_winner
 16) count_squares
 17) create_palindrome
+18) negate_list
