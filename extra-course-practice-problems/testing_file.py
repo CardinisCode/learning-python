@@ -3,7 +3,12 @@
 
 
 
-word = "pig"
+a_dictionary = {1: "a", 2: "b", 3: "c"}
+key = 4
+value = "d"
+
+a_dictionary[key] = value
+print(a_dictionary)
 
 
 

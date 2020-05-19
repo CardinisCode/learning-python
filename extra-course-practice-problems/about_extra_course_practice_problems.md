@@ -28,4 +28,6 @@ There are 27 problems aimed at helping me practice for their test.
 23) finding the The Greatest Common Factor (GCF)
 24) to_pig_latin
 25) delete_from_list
+26) add_to_dictionary
+27) garble_this
 
