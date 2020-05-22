@@ -10,4 +10,4 @@ There are 9 code challenges overall, as part of the practice test questions, whi
 6) are_anagrams
 7) alter_list
 8) rabbit_hole
-9) 
+9) lazy_encrypt
