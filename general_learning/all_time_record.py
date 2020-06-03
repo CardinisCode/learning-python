@@ -266,12 +266,67 @@ def calculate_GTs_all_time_record_between_two_dates(start_date, end_date):
     return record
 
 
+def create_dictionary_of_points_for_and_against_per_opposition():
+    record_board = store_the_file_contents()
+    points_per_opposition = {}
+
+    for match in record_board:
+        opponent = match.opposition_team
+        points_for = match.points_for
+        points_against = match.points_against
+        
+        if not opponent in points_per_opposition.keys():
+            points_per_opposition[opponent] = {
+                "Total Points GT Won": 0,
+                "Total Points GT Lost": 0
+            }
+        points_per_opposition[opponent]["Total Points GT Won"] += points_for
+        points_per_opposition[opponent]["Total Points GT Lost"] += points_against
+
+    return points_per_opposition
+
+
+# Q9: Against what team has Georgia Tech scored the most points?
+def find_team_GT_has_scored_the_most_points_against():
+    total_points_per_opposition = create_dictionary_of_points_for_and_against_per_opposition()
+
+    highest_points_for_GT = None
+    team_in_question = None
+
+    for team in total_points_per_opposition.keys():
+        points_for = total_points_per_opposition[team]["Total Points GT Won"]
+
+        if highest_points_for_GT == None or points_for > highest_points_for_GT:
+            highest_points_for_GT = points_for
+            team_in_question = team
+
+    return team_in_question
+
+
+# Q10: What is one of the two teams that Georgia Tech has played, and yet has never scored any points against? 
+# Name either team.
+def find_team_GT_played_but_never_scored_any_points_against():
+    total_points_per_opposition = create_dictionary_of_points_for_and_against_per_opposition()
+    teams_with_no_points_against_them = []
+
+    for opponent in total_points_per_opposition:
+        points_for = total_points_per_opposition[opponent]["Total Points GT Won"]
+
+        if points_for == 0:
+            teams_with_no_points_against_them.append(opponent)
+
+    return teams_with_no_points_against_them[0]
+
+
+
+
 class TestAllTimeRecord(unittest.TestCase):
     def test_all_time_record_GT_lose_to_clemson(self):
         print("---------------------------------------")
         expected = "0-1-0"
         actual = all_time_record("Clemson")
         self.assertEqual(expected, actual)
+
 
     def test_all_time_record_GT_win_to_Duke(self):
         expected = "1-0-0"
@@ -310,16 +365,19 @@ class TestAllTimeRecord(unittest.TestCase):
         actual = calculate_GTs_record_of_all_games_played_in_specific_year("2016")
         self.assertEqual(expected, actual)
 
+
     def test_GTs_record_all_games_played_in_year_2015(self):
         expected = "1-0-0"
         actual = calculate_GTs_record_of_all_games_played_in_specific_year("2015")
         self.assertEqual(expected, actual)
 
-    # Correct outcome for #6 against their data-set is: 302-177-10
+
+    # Correct outcome for #7 against their data-set is: 302-177-10
     def test_GTs_all_time_record_in_October(self):
         expected = "3-2-0"
         actual = calculate_GTs_alltime_record_in_specific_month("10")
         self.assertEqual(expected, actual)
+
 
     def test_GTs_all_time_record_in_November(self):
         expected = "3-1-0"
@@ -332,6 +390,23 @@ class TestAllTimeRecord(unittest.TestCase):
         expected = "10-4-1"
         actual = calculate_GTs_all_time_record_between_two_dates("2015", "2016")
         self.assertEqual(expected, actual)
+
+
+    # Correct outcome for #9 against their data-set is: Duke
+    def test_team_GT_has_score_the_most_points_against(self):
+        expected = "Duke"
+        actual = find_team_GT_has_scored_the_most_points_against()
+        self.assertEqual(expected, actual)
+
+
+    # Correct outcome for #10 against their data-set is: 'Carnegie Tech' OR 'St. Albans'
+    def test_team_GT_played_but_never_scored_any_points_against(self):
+        expected = "Luisiana"
+        actual = find_team_GT_played_but_never_scored_any_points_against()
+        self.assertEqual(expected, actual)
+
+    
+
 
     
 

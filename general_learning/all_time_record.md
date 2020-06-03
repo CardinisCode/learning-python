@@ -59,7 +59,11 @@
 # Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
 # Q7: What is Georgia Tech's all-time record in the month of October? 
 # Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
-
+# Q8: Georgia Tech played in the SEC from 1933 to 1963. What was its record during this time? 
+# Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
+# Q9: Against what team has Georgia Tech scored the most points?
+# Q10: What is one of the two teams that Georgia Tech has played, and yet has never scored any points against? 
+# Name either team.
 
 
 import unittest
