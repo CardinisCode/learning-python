@@ -43,17 +43,6 @@
 #           So:  all_time_record("Clemson") would return the string "51-28-2".
 #
 
-# This dataset had a lot of other information in it. Let's
-# use it to answer some more questions.
-
-# Q1: Who was the first team Georgia Tech ever played against?
-
-
-
-
-import unittest
-# import json
-
 def creating_record_history(file_input, opposing_team):
     wins_for_GT = 0
     losses_for_GT = 0

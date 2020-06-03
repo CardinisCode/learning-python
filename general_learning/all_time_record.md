@@ -50,8 +50,8 @@
 # Yet when I saw how many questions that followed and the info I needed to extract to answer the questions, I knew I had to decide how I wanted to store the data for easier extraction - not just for the current question, but for all the questions overall. 
 # After all the size of the program should reflect what's needed from the data itself - a big program just for the sake of it is a waste of resources.  
 
-# Q1: Who was the first team Georgia Tech ever played against?
-
+# Q2: Who was the first team Georgia Tech ever played against?
+# Q3: How many points has Georgia Tech scored all-time against Auburn?
 
 
 
