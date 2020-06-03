@@ -52,6 +52,9 @@
 
 # Q2: Who was the first team Georgia Tech ever played against?
 # Q3: How many points has Georgia Tech scored all-time against Auburn?
+# Q4: How many points has Auburn scored all-time against Georgia Tech?
+# Q5: What is Georgia Tech's all-time record in home games? 
+#   Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
 
 
 

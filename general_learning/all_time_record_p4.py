@@ -1,8 +1,8 @@
-# Lets answer Q2: Who was the first team Georgia Tech ever played against?
-# we need the earliest data recorded in this file. 
+import unittest
+from datetime import datetime
 
-#Firstly we need to extract the file contents. So I shall create a function 
-# which opens the file once and returns these contents for easy access. 
+
+
 def extract_file_contents(filename): 
     imported_file = open(filename, "r")
     file_contents = imported_file.readlines()
@@ -10,10 +10,6 @@ def extract_file_contents(filename):
     return file_contents
 
 
-# current_filename = "season2016.csv"
-
-# Now to store this data in such a way that it can be easily accessed not only to answer this question
-# but for the 11 questions that follow. 
 from datetime import datetime
 
 class Match:
@@ -21,8 +17,8 @@ class Match:
         self.opposition_team = opposition
         self.date = date
         self.location = location
-        self.points_for = points_for
-        self.points_against = points_against
+        self.points_for = int(points_for)
+        self.points_against = int(points_against)
 
     def __str__(self):
         return "%s: %s, %s,%s" % (self.date, self.location, self.points_for, self.points_against)
@@ -32,9 +28,12 @@ class Match:
         self.date = datetime(int(year), int(month), int(day))
         return self.date
 
+
 def store_the_file_contents():
     record_board = []
     file_contents = extract_file_contents("season2016.csv")
+    # input_file = open('../resource/lib/public/georgia_tech_football.csv', 'r')
+
     for i in range(1, len(file_contents)):
         line = file_contents[i].rstrip()
         date, opposing_team, location, points_for, points_against = line.split(",")
@@ -44,26 +43,29 @@ def store_the_file_contents():
 
     return record_board
 
-
-def find_earliest_date():
-    earliest_date = None
-    team_on_earliest_date = None 
+# Q4: How many points has Auburn scored all-time against Georgia Tech?
+def calculate_all_time_points_opponent_scored_against_GT(opponent):
+    all_time_points = 0
 
     record_board = store_the_file_contents()
     for match in record_board:
         opposing_team = match.opposition_team
-        date = match.get_date(match.date)
+        points_against = match.points_against
 
-        if earliest_date == None or date < earliest_date: 
-            earliest_date = date
-            team_on_earliest_date = opposing_team
-        else:
-            continue
+        if opposing_team == opponent:
+            all_time_points += points_against
 
-    return team_on_earliest_date
+    return all_time_points
 
 
+class TestAllTimeRecord(unittest.TestCase):
+    def test_points_clemson_scores_all_time_against_GT(self):
+        expected = 26
+        actual = calculate_all_time_points_opponent_scored_against_GT("Clemson")
+        self.assertEqual(expected, actual)
 
 
 
 
+if __name__ == "__main__":
+    unittest.main()

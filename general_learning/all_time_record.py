@@ -42,22 +42,62 @@
 #           EG: Georgia Tech has beaten Clemson 51 times, lost 28 times, and tied 2 times. 
 #           So:  all_time_record("Clemson") would return the string "51-28-2".
 #
+import unittest
 
-def creating_record_history(file_input, opposing_team):
+def extract_file_contents(filename): 
+    imported_file = open(filename, "r")
+    file_contents = imported_file.readlines()
+    imported_file.close()
+    return file_contents
+
+
+from datetime import datetime
+
+class Match:
+    def __init__(self, opposition, date, location, points_for, points_against):
+        self.opposition_team = opposition
+        self.date = date
+        self.location = location
+        self.points_for = int(points_for)
+        self.points_against = int(points_against)
+
+    def __str__(self):
+        return "%s: %s, %s,%s" % (self.date, self.location, self.points_for, self.points_against)
+    
+    def get_date(self, date_string):
+        year, month, day = date_string.split("-")
+        self.date = datetime(int(year), int(month), int(day))
+        return self.date
+
+
+def store_the_file_contents():
+    record_board = []
+    file_contents = extract_file_contents("season2016.csv")
+    # input_file = open('../resource/lib/public/georgia_tech_football.csv', 'r')
+
+    for i in range(1, len(file_contents)):
+        line = file_contents[i].rstrip()
+        date, opposing_team, location, points_for, points_against = line.split(",")
+
+        current_match = Match(opposing_team, date, location, points_for, points_against)
+        record_board.append(current_match)
+
+    return record_board
+
+# Solving Task 1: the initial question "What is GT's all-time score against opponent X?"
+
+def all_time_record(opposing_team):
+    record_board = store_the_file_contents()
+
     wins_for_GT = 0
     losses_for_GT = 0
     ties_for_GT = 0
 
-    for i in range(1, len(file_input)):
-        line = file_input[i]
-        line = line.rstrip()
-        line_split = line.split(",")
-        team = line_split[1]
-        points_for = int(line_split[3])
-        points_against = int(line_split[4])
+    for match in record_board:
+        team = match.opposition_team
+        points_for = match.points_for
+        points_against = match.points_against
 
-        #current_opponent = Opponents(team, location, points_for, points_against)
-        
         if team == opposing_team:
             if points_for > points_against:
                 wins_for_GT += 1
@@ -71,34 +111,95 @@ def creating_record_history(file_input, opposing_team):
     return record
 
 
-def all_time_record(opposing_team):
-    #input_file = open("season2016.csv", "r")
-    input_file = open('../resource/lib/public/georgia_tech_football.csv', 'r')
-    file_contents = input_file.readlines()
-    input_file.close()
+# Lets answer Q2: Who was the first team Georgia Tech ever played against?
 
-    record_history = creating_record_history(file_contents, opposing_team)
+def find_earliest_date():
+    earliest_date = None
+    team_on_earliest_date = None 
 
-    return record_history
+    record_board = store_the_file_contents()
+    for match in record_board:
+        opposing_team = match.opposition_team
+        date = match.get_date(match.date)
 
+        if earliest_date == None or date < earliest_date: 
+            earliest_date = date
+            team_on_earliest_date = opposing_team
+        else:
+            continue
 
-    
-
-#Below are some lines of code that will test your function.
-#You can change the value of the variable(s) to test your
-#function with different inputs.
-#
-#If your function works correctly, this will originally
-#print: 51-28-2, 51-33-1, and 29-21-3, each on a separate
-#line.
-print("Clemson", all_time_record("Clemson"), "Vs the expected: 51-28-2")
-print()
-print("Duke", all_time_record("Duke"), "Vs the expected: 51-33-1")
-print()
-print("North Carolina", all_time_record("North Carolina"), "Vs the expected: 29-21-3")
-print()
-print("Pensalvania", all_time_record("Pensalvania"))
+    return team_on_earliest_date
 
 
+# Q3: How many points has Georgia Tech scored all-time against Auburn?
+
+def calculate_all_time_points_GT_scored_against_opponent(opponent):
+    all_time_points = 0
+
+    record_board = store_the_file_contents()
+    for match in record_board:
+        opposing_team = match.opposition_team
+        points_for = match.points_for
+
+        if opposing_team == opponent:
+            all_time_points += points_for
+
+    return all_time_points
+
+
+# Q4: How many points has Auburn scored all-time against Georgia Tech?
+def calculate_all_time_points_opponent_scored_against_GT(opponent):
+    all_time_points = 0
+
+    record_board = store_the_file_contents()
+    for match in record_board:
+        opposing_team = match.opposition_team
+        points_against = match.points_against
+
+        if opposing_team == opponent:
+            all_time_points += points_against
+
+    return all_time_points
+
+# Q5: What is Georgia Tech's all-time record in home games? 
+#   Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
+
+
+
+class TestAllTimeRecord(unittest.TestCase):
+    def test_all_time_record_GT_lose_to_clemson(self):
+        print("---------------------------------------")
+        expected = "0-1-0"
+        actual = all_time_record("Clemson")
+        self.assertEqual(expected, actual)
+
+    def test_all_time_record_GT_win_to_Duke(self):
+        print("---------------------------------------")
+        expected = "1-0-0"
+        actual = all_time_record("Duke")
+        self.assertEqual(expected, actual)
+
+
+    def test_all_time_record_GT_tie_with_Pensalvania(self):
+        print("---------------------------------------")
+        expected = "0-0-1"
+        actual = all_time_record("Pensalvania")
+        self.assertEqual(expected, actual)
+
+
+    def test_points_clemson_scores_all_time_against_GT(self):
+        expected = 26
+        actual = calculate_all_time_points_opponent_scored_against_GT("Clemson")
+        self.assertEqual(expected, actual)
+
+
+    def test_points_clemson_scores_all_time_against_GT(self):
+        expected = 13
+        actual = calculate_all_time_points_opponent_scored_against_GT("Auburn")
+        self.assertEqual(expected, actual)
+
+
+if __name__== "__main__":
+    unittest.main()
 
 
