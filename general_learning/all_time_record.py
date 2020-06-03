@@ -111,7 +111,6 @@ def all_time_record(opposing_team):
 
 
 # Lets answer Q2: Who was the first team Georgia Tech ever played against?
-
 def find_earliest_date():
     earliest_date = None
     team_on_earliest_date = None 
@@ -131,7 +130,6 @@ def find_earliest_date():
 
 
 # Q3: How many points has Georgia Tech scored all-time against Auburn?
-
 def calculate_all_time_points_GT_scored_against_opponent(opponent):
     all_time_points = 0
 
@@ -214,6 +212,33 @@ def calculate_GTs_record_of_all_games_played_in_specific_year(match_year):
     return record
 
 
+#Q7: What is Georgia Tech's all-time record in the month of October? 
+# Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
+def calculate_GTs_alltime_record_in_specific_month(match_month):
+    record_board = store_the_file_contents()
+
+    wins_for_GT = 0
+    losses_for_GT = 0
+    ties_for_GT = 0
+
+    for match in record_board:
+        date = match.get_date(match.date)
+        month = date.month
+        points_for = match.points_for
+        points_against = match.points_against
+
+        if month == int(match_month):
+            if points_for > points_against:
+                wins_for_GT += 1
+            elif points_against > points_for:
+                losses_for_GT += 1
+            else:
+                ties_for_GT += 1
+
+    record = str(wins_for_GT) + "-" + str(losses_for_GT) + "-" + str(ties_for_GT)
+    return record
+
+
 
 
 
@@ -264,6 +289,17 @@ class TestAllTimeRecord(unittest.TestCase):
     def test_GTs_record_all_games_played_in_year_2015(self):
         expected = "1-0-0"
         actual = calculate_GTs_record_of_all_games_played_in_specific_year("2015")
+        self.assertEqual(expected, actual)
+
+    # Correct outcome for #6 against their data-set is: 302-177-10
+    def test_GTs_all_time_record_in_October(self):
+        expected = "3-2-0"
+        actual = calculate_GTs_alltime_record_in_specific_month("10")
+        self.assertEqual(expected, actual)
+
+    def test_GTs_all_time_record_in_November(self):
+        expected = "3-1-0"
+        actual = calculate_GTs_alltime_record_in_specific_month("11")
         self.assertEqual(expected, actual)
 
 

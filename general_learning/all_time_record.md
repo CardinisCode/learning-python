@@ -57,7 +57,8 @@
 #   Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
 # Q6: What was Georgia Tech's record in all games played in the 2009 calendar year? 
 # Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
-
+# Q7: What is Georgia Tech's all-time record in the month of October? 
+# Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
 
 
 
