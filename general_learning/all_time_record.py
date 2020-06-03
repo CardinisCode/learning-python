@@ -187,6 +187,34 @@ def calculating_GTs_all_time_record_in_home_games():
     return record
 
 
+# Q6: What was Georgia Tech's record in all games played in the 2009 calendar year? 
+# Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
+def calculate_GTs_record_of_all_games_played_in_specific_year(match_year):
+    record_board = store_the_file_contents()
+
+    wins_for_GT = 0
+    losses_for_GT = 0
+    ties_for_GT = 0
+
+    for match in record_board:
+        date = match.get_date(match.date)
+        year = date.year
+        points_for = match.points_for
+        points_against = match.points_against
+
+        if year == int(match_year):
+            if points_for > points_against:
+                wins_for_GT += 1
+            elif points_against > points_for:
+                losses_for_GT += 1
+            else:
+                ties_for_GT += 1
+
+    record = str(wins_for_GT) + "-" + str(losses_for_GT) + "-" + str(ties_for_GT)
+    return record
+
+
+
 
 
 class TestAllTimeRecord(unittest.TestCase):
@@ -197,14 +225,12 @@ class TestAllTimeRecord(unittest.TestCase):
         self.assertEqual(expected, actual)
 
     def test_all_time_record_GT_win_to_Duke(self):
-        print("---------------------------------------")
         expected = "1-0-0"
         actual = all_time_record("Duke")
         self.assertEqual(expected, actual)
 
 
     def test_all_time_record_GT_tie_with_Pensalvania(self):
-        print("---------------------------------------")
         expected = "0-0-1"
         actual = all_time_record("Pensalvania")
         self.assertEqual(expected, actual)
@@ -221,12 +247,24 @@ class TestAllTimeRecord(unittest.TestCase):
         actual = calculate_all_time_points_opponent_scored_against_GT("Auburn")
         self.assertEqual(expected, actual)
 
-    
+
+     # Correct outcome against their data-set is: 513-226-27
     def test_GTs_all_time_record_in_home_games(self):
         expected = "6-2-1"
         actual = calculating_GTs_all_time_record_in_home_games()
         self.assertEqual(expected, actual)
-        # Correct outcome against their data-set is: 513-226-27
+       
+
+    # Correct outcome for #6 against their data-set is: 11-3-0
+    def test_GTs_record_all_games_played_in_year_2016(self):
+        expected = "9-4-1"
+        actual = calculate_GTs_record_of_all_games_played_in_specific_year("2016")
+        self.assertEqual(expected, actual)
+
+    def test_GTs_record_all_games_played_in_year_2015(self):
+        expected = "1-0-0"
+        actual = calculate_GTs_record_of_all_games_played_in_specific_year("2015")
+        self.assertEqual(expected, actual)
 
 
 if __name__== "__main__":
