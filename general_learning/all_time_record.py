@@ -61,7 +61,7 @@ class Match:
         self.points_against = int(points_against)
 
     def __str__(self):
-        return "%s: %s, %s,%s" % (self.date, self.location, self.points_for, self.points_against)
+        return "%s: %s, %s, %s,%s" % (opposition_team, self.date, self.location, self.points_for, self.points_against)
     
     def get_date(self, date_string):
         year, month, day = date_string.split("-")
@@ -318,6 +318,25 @@ def find_team_GT_played_but_never_scored_any_points_against():
     return teams_with_no_points_against_them[0]
 
 
+# Q11: How many teams has played Georgia Tech and never scored a point?
+def find_number_teams_to_play_GT_but_never_score_a_point():
+    total_points_per_opposition = create_dictionary_of_points_for_and_against_per_opposition()
+    number_of_teams = 0
+
+    for opponent in total_points_per_opposition.keys():
+        points_against = total_points_per_opposition[opponent]["Total Points GT Lost"]
+
+        if points_against == 0:
+            number_of_teams += 1
+
+    return number_of_teams
+
+
+# Q12: What is Georgia Tech's all-time record in home games? 
+# Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
+
+
+
 
 
 class TestAllTimeRecord(unittest.TestCase):
@@ -339,7 +358,7 @@ class TestAllTimeRecord(unittest.TestCase):
         actual = all_time_record("Pensalvania")
         self.assertEqual(expected, actual)
 
-
+    # Correct outcome for #4 against their data-set is: 1143
     def test_points_clemson_scores_all_time_against_GT(self):
         expected = 26
         actual = calculate_all_time_points_opponent_scored_against_GT("Clemson")
@@ -352,7 +371,7 @@ class TestAllTimeRecord(unittest.TestCase):
         self.assertEqual(expected, actual)
 
 
-     # Correct outcome against their data-set is: 513-226-27
+     # Correct outcome for #5 against their data-set is: 513-226-27
     def test_GTs_all_time_record_in_home_games(self):
         expected = "6-2-1"
         actual = calculating_GTs_all_time_record_in_home_games()
@@ -405,7 +424,13 @@ class TestAllTimeRecord(unittest.TestCase):
         actual = find_team_GT_played_but_never_scored_any_points_against()
         self.assertEqual(expected, actual)
 
-    
+    # Correct outcome for #11 against their data-set is: 11
+    def test_find_number_teams_to_play_GT_but_never_score_a_point(self):
+        expected = 2
+        actual = find_number_teams_to_play_GT_but_never_score_a_point()
+        self.assertEqual(expected, actual)
+
+
 
 
     

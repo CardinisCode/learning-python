@@ -64,7 +64,9 @@
 # Q9: Against what team has Georgia Tech scored the most points?
 # Q10: What is one of the two teams that Georgia Tech has played, and yet has never scored any points against? 
 # Name either team.
-
+# Q11: How many teams has played Georgia Tech and never scored a point?
+# Q12: What is Georgia Tech's all-time record in home games? 
+# Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
 
 import unittest
 # import json
