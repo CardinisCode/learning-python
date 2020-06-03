@@ -332,9 +332,26 @@ def find_number_teams_to_play_GT_but_never_score_a_point():
     return number_of_teams
 
 
-# Q12: What is Georgia Tech's all-time record in home games? 
-# Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
+# Q12: Against what team does Georgia Tech have the highest scoring differential (points for minus points against) all-time?
+def find_team_GT_has_the_highest_scoring_differential_against():
+    total_points_per_opposition = create_dictionary_of_points_for_and_against_per_opposition()
 
+    highest_differential = None
+    team_with_highest_differential = None
+
+    for opponent in total_points_per_opposition.keys():
+        points_for = total_points_per_opposition[opponent]["Total Points GT Won"]
+        points_against = total_points_per_opposition[opponent]["Total Points GT Lost"]
+        differential = abs(points_for - points_against)
+
+        if differential < 0: 
+            continue
+        else:
+            if highest_differential == None or differential > highest_differential:
+                highest_differential = differential
+                team_with_highest_differential = opponent
+
+    return team_with_highest_differential
 
 
 
@@ -428,6 +445,12 @@ class TestAllTimeRecord(unittest.TestCase):
     def test_find_number_teams_to_play_GT_but_never_score_a_point(self):
         expected = 2
         actual = find_number_teams_to_play_GT_but_never_score_a_point()
+        self.assertEqual(expected, actual)
+
+    # Correct outcome for #12 against their data-set is: Tulane
+    def test_find_team_GT_has_the_highest_scoring_differential_against(self):
+        expected = "Vanderbilt"
+        actual = find_team_GT_has_the_highest_scoring_differential_against()
         self.assertEqual(expected, actual)
 
 
