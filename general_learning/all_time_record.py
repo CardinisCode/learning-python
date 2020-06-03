@@ -239,7 +239,31 @@ def calculate_GTs_alltime_record_in_specific_month(match_month):
     return record
 
 
+# Q8: Georgia Tech played in the SEC from 1933 to 1963. What was its record during this time? 
+# Enter your response in the same style as the previous problem's output, Wins-Losses-Ties; for example, 100-50-25.
+def calculate_GTs_all_time_record_between_two_dates(start_date, end_date):
+    record_board = store_the_file_contents()
 
+    wins_for_GT = 0
+    losses_for_GT = 0
+    ties_for_GT = 0
+
+    for match in record_board:
+        date = match.get_date(match.date)
+        year = date.year
+        points_for = match.points_for
+        points_against = match.points_against
+
+        if year >= int(start_date) and year <= int(end_date):
+            if points_for > points_against:
+                wins_for_GT += 1
+            elif points_against > points_for:
+                losses_for_GT += 1
+            else:
+                ties_for_GT += 1
+
+    record = str(wins_for_GT) + "-" + str(losses_for_GT) + "-" + str(ties_for_GT)
+    return record
 
 
 class TestAllTimeRecord(unittest.TestCase):
@@ -301,6 +325,15 @@ class TestAllTimeRecord(unittest.TestCase):
         expected = "3-1-0"
         actual = calculate_GTs_alltime_record_in_specific_month("11")
         self.assertEqual(expected, actual)
+
+
+    # Correct outcome for #8 against their data-set is: 206-110-12
+    def test_GTs_all_time_record_between_2015_and_2016(self):
+        expected = "10-4-1"
+        actual = calculate_GTs_all_time_record_between_two_dates("2015", "2016")
+        self.assertEqual(expected, actual)
+
+    
 
 
 if __name__== "__main__":
