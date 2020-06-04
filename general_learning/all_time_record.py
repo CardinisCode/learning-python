@@ -387,14 +387,14 @@ def find_team_GT_has_highest_avg_differential_against():
 
 class TestAllTimeRecord(unittest.TestCase):
 
-    # Correct outcome for #1 against their data-set is: Auburn
+    # Correct outcome for #1 (Clemson) against their data-set is: 51-28-2
     def test_all_time_record_GT_lose_to_clemson(self):
         print("---------------------------------------")
         expected = "0-1-0"
         actual = all_time_record("Clemson")
         self.assertEqual(expected, actual)
 
-
+    # Correct outcome for #1 (Duke) against their data-set is: 51-33-1
     def test_all_time_record_GT_win_to_Duke(self):
         expected = "1-0-0"
         actual = all_time_record("Duke")
@@ -405,6 +405,7 @@ class TestAllTimeRecord(unittest.TestCase):
         expected = "0-0-1"
         actual = all_time_record("Pensalvania")
         self.assertEqual(expected, actual)
+
     
         # Correct outcome for #2 against their data-set is: Auburn
     def find_earliest_team_GT_ever_played_against(self):
