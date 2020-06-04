@@ -83,8 +83,30 @@ def store_the_file_contents():
 
     return record_board
 
-# Solving Task 1: the initial question "What is GT's all-time score against opponent X?"
 
+def create_dictionary_of_points_for_and_against_per_opposition():
+    record_board = store_the_file_contents()
+    points_per_opposition = {}
+
+    for match in record_board:
+        opponent = match.opposition_team
+        points_for = match.points_for
+        points_against = match.points_against
+        
+        if not opponent in points_per_opposition.keys():
+            points_per_opposition[opponent] = {
+                "Total Points GT Won": 0,
+                "Total Points GT Lost": 0,
+                "Number of Games Played": 0
+            }
+        points_per_opposition[opponent]["Total Points GT Won"] += points_for
+        points_per_opposition[opponent]["Total Points GT Lost"] += points_against
+        points_per_opposition[opponent]["Number of Games Played"] += 1
+
+    return points_per_opposition
+
+
+# Solving Task 1: the initial question "What is GT's all-time score against opponent X?"
 def all_time_record(opposing_team):
     record_board = store_the_file_contents()
 
@@ -266,28 +288,6 @@ def calculate_GTs_all_time_record_between_two_dates(start_date, end_date):
     return record
 
 
-def create_dictionary_of_points_for_and_against_per_opposition():
-    record_board = store_the_file_contents()
-    points_per_opposition = {}
-
-    for match in record_board:
-        opponent = match.opposition_team
-        points_for = match.points_for
-        points_against = match.points_against
-        
-        if not opponent in points_per_opposition.keys():
-            points_per_opposition[opponent] = {
-                "Total Points GT Won": 0,
-                "Total Points GT Lost": 0,
-                "Number of Games Played": 0
-            }
-        points_per_opposition[opponent]["Total Points GT Won"] += points_for
-        points_per_opposition[opponent]["Total Points GT Lost"] += points_against
-        points_per_opposition[opponent]["Number of Games Played"] += 1
-
-    return points_per_opposition
-
-
 # Q9: Against what team has Georgia Tech scored the most points?
 def find_team_GT_has_scored_the_most_points_against():
     total_points_per_opposition = create_dictionary_of_points_for_and_against_per_opposition()
@@ -386,6 +386,8 @@ def find_team_GT_has_highest_avg_differential_against():
 
 
 class TestAllTimeRecord(unittest.TestCase):
+
+    # Correct outcome for #1 against their data-set is: Auburn
     def test_all_time_record_GT_lose_to_clemson(self):
         print("---------------------------------------")
         expected = "0-1-0"
@@ -402,6 +404,19 @@ class TestAllTimeRecord(unittest.TestCase):
     def test_all_time_record_GT_tie_with_Pensalvania(self):
         expected = "0-0-1"
         actual = all_time_record("Pensalvania")
+        self.assertEqual(expected, actual)
+    
+        # Correct outcome for #2 against their data-set is: Auburn
+    def find_earliest_team_GT_ever_played_against(self):
+        print("---------------------------------------")
+        expected = "Jersey"
+        actual = find_earliest_date()
+        self.assertEqual(expected, actual)
+
+    # Correct outcome for #3 against their data-set is:
+    def test_calculate_all_time_points_GT_scored_against_opponent(self):
+        expected = 18
+        actual = calculate_all_time_points_GT_scored_against_opponent("Auburn")
         self.assertEqual(expected, actual)
 
     # Correct outcome for #4 against their data-set is: 1143
@@ -439,7 +454,7 @@ class TestAllTimeRecord(unittest.TestCase):
 
     # Correct outcome for #7 against their data-set is: 302-177-10
     def test_GTs_all_time_record_in_October(self):
-        expected = "3-2-0"
+        expected = "3-3-0"
         actual = calculate_GTs_alltime_record_in_specific_month("10")
         self.assertEqual(expected, actual)
 
@@ -489,7 +504,6 @@ class TestAllTimeRecord(unittest.TestCase):
         self.assertEqual(expected, actual)
 
     
-
 
 if __name__== "__main__":
     unittest.main()
