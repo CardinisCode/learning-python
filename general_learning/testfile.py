@@ -15,4 +15,8 @@ for i in births_2:
 
 
 letter_count = [2954, 119]
-print(sum(letter_count))
+
+
+name = [186, 6194]
+difference = abs(name[0] - name[1])
+print(difference)

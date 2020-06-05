@@ -1,35 +1,12 @@
 import unittest
 
-
+# Here I solved this problem using dictionaries:
 
 def unpacking_file_contents(filename):
     import_file = open(filename, "r")
     file_contents = import_file.readlines()
     import_file.close()
     return file_contents
-
-
-class BabyNames:
-    def __init__(self, name):
-        self.name = name
-        self.baby_count = 0
-        self.gender = "Neutral"
-
-    def __str__(self):
-        return "%s: %s, %s" % (self.name, self.baby_count, self.gender)
-
-
-class BabyBoys(BabyNames):
-    def __init__(self, name, baby_count, gender):
-        super().__init__(name)
-        self.baby_count = baby_count
-        self.gender = gender
-
-class BabyGirls(BabyNames):
-    def __init__(self, name, baby_count, gender):
-        super().__init__(name)
-        self.baby_count = baby_count
-        self.gender = gender
 
 
 def create_baby_names_database():
@@ -201,9 +178,52 @@ def find_total_baby_count_for_most_common_letter():
     return baby_names_by_first_letter[most_common_letter]
 
 
-# Q10: By default, the Social Security Administration's data separates out names by gender. For example, Jamie is listed separately for girls and for boys. 
+# Q10: By default, the Social Security Administration's data separates out names by gender. 
+# For example, Jamie is listed separately for girls and for boys. 
 # If you were to remove this separation, what would be the most common name in the 2010s regardless of gender?
+def find_most_common_name():
+    highest_count = None
+    most_common_name = None
 
+    baby_names_database = create_baby_names_database()
+    for name in baby_names_database.keys():
+        baby_count = baby_names_database[name]["Total Babies Count"]
+        
+        if highest_count == None or baby_count > highest_count:
+            highest_count = baby_count
+            most_common_name = name
+
+    return most_common_name
+
+
+# Q11: How many people would have that name?
+def find_quantity_children_with_most_common_name():
+    most_common_name = find_most_common_name()
+    baby_names_database = create_baby_names_database()
+
+    return baby_names_database[most_common_name]["Total Babies Count"]
+
+
+# Q12: What name that is used for both genders has the smallest difference 
+# in which gender holds the name most frequently? In case of a tie, enter any one of the correct answers.
+
+def find_name_with_smallest_difference():
+    baby_names_database = create_baby_names_database()
+    smallest_difference = None
+    name_with_smallest_difference = None 
+
+    for name in baby_names_database.keys():
+        boy_count = baby_names_database[name]["Boy"]
+        girl_count = baby_names_database[name]["Girl"]
+        both_genders = baby_names_database[name]["Both Genders"]
+
+        if both_genders >= 1:
+            difference = abs(boy_count - girl_count)
+            if smallest_difference == None or difference < smallest_difference:
+                smallest_difference = difference
+                name_with_smallest_difference = name
+
+    return name_with_smallest_difference
 
 
 class TestBabyNames(unittest.TestCase):
@@ -251,18 +271,35 @@ class TestBabyNames(unittest.TestCase):
         actual = find_total_baby_count_for_least_common_letter()
         self.assertEqual(expected, actual) 
 
-    # Correct Answer (#8) in their dataset:
+    # Correct Answer (#8) in their dataset: A
     def test_find_most_common_first_letter_of_a_babys_name(self):
         expected = "A"
         actual = find_most_common_first_letter_of_a_babys_name()
         self.assertEqual(expected, actual)         
 
-
+    # Correct Answer (#9) in their dataset: 983627
     def test_find_total_baby_count_for_most_common_letter(self):
         expected = 73053
         actual = find_total_baby_count_for_most_common_letter()
         self.assertEqual(expected, actual)           
 
+    # Correct Answer (#10) in their dataset: Isabella
+    def test_find_most_common_name(self):
+        expected = "Isabella"
+        actual = find_most_common_name()
+        self.assertEqual(expected, actual)   
+
+    # Correct Answer (#11) in their dataset: 42623
+    def test_find_quantity_children_with_most_common_name(self):
+        expected = 42567
+        actual = find_quantity_children_with_most_common_name()
+        self.assertEqual(expected, actual)           
+
+    # Correct Answer (#11) in their dataset: Kylin
+    def test_find_name_with_smallest_difference(self):
+        expected = "Jesse"
+        actual = find_name_with_smallest_difference()
+        self.assertEqual(expected, actual)         
 
 
 
