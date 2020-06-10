@@ -25,17 +25,17 @@ Use this information to answer the questions below. Note that although you can d
 #Q3: What Pokemon has the highest HP statistic?
 #Q4: Excluding Pokemon that are either Mega or Legendary, what Pokemon has the highest Defense statistic?
 #Q5: Among Legendary Pokemon, what is the most common type? Include both Type1 and Type2 in your count.
-#Q5: In terms of the sum of all six stats (HP, Attack, Defense, Special Attack, Special Defense, and Speed), what is the weakest Legendary Pokemon? If there is a tie, list any of the tying Pokemon.
+#Q6: In terms of the sum of all six stats (HP, Attack, Defense, Special Attack, Special Defense, and Speed), what is the weakest Legendary Pokemon? If there is a tie, list any of the tying Pokemon.
 
-#Q6: In terms of the sum of all six stats (HP, Attack, Defense, Special Attack, Special Defense, and Speed), what is the strongest non-Legendary, non-Mega Pokemon? If there is a tie, list any of the tying Pokemon.
+#Q7: In terms of the sum of all six stats (HP, Attack, Defense, Special Attack, Special Defense, and Speed), what is the strongest non-Legendary, non-Mega Pokemon? If there is a tie, list any of the tying Pokemon.
 
-#Q7: What type has the highest average Speed statistic? Include both Type1 and Type2 in your calculation.
+#Q8: What type has the highest average Speed statistic? Include both Type1 and Type2 in your calculation.
 
-#Q8: Rounded to the nearest integer, what is that highest average Speed statistic? Include both Type1 and Type2 in your calculation
+#Q9: Rounded to the nearest integer, what is that highest average Speed statistic? Include both Type1 and Type2 in your calculation
 
-# Q9: Among all 7 Pokemon generations, which generation had the highest average sum of all six stats (HP, Attack, Defense, Special Attack, Special Defense, and Speed)?
+# Q10: Among all 7 Pokemon generations, which generation had the highest average sum of all six stats (HP, Attack, Defense, Special Attack, Special Defense, and Speed)?
 
-# Q10: Rounded to the nearest integer, how much higher was that statistic than the next-closest generation's average sum of all six stats (HP, Attack, Defense, Special Attack, Special Defense, and Speed)?
+# Q11: Rounded to the nearest integer, how much higher was that statistic than the next-closest generation's average sum of all six stats (HP, Attack, Defense, Special Attack, Special Defense, and Speed)?
 
-# Q11: Rounded to the nearest integer, how much higher is the average sum of all six stats among Mega Pokemon than their non-Mega versions? Note that Mega Pokemon share the same Number (the first column) as their non-Mega versions, which will allow you to find all Pokemon that have a Mega version.
+# Q12: Rounded to the nearest integer, how much higher is the average sum of all six stats among Mega Pokemon than their non-Mega versions? Note that Mega Pokemon share the same Number (the first column) as their non-Mega versions, which will allow you to find all Pokemon that have a Mega version.
 

@@ -25,3 +25,4 @@ Number,Name,Type1,Type2,HP,Attack,Defense,SpecialAtk,SpecialDef,Speed,Generation
 18,Mega Pidgeot,Normal,Flying,83,80,80,135,80,121,1,FALSE,TRUE
 19,Rattata,Normal,,30,56,35,25,35,72,1,FALSE,FALSE
 20,Raticate,Normal,,55,81,60,50,70,97,1,FALSE,FALSE
+144,Articuno,Ice,,90,85,100,95,125,85,1,TRUE,FALSE
