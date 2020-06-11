@@ -56,7 +56,7 @@ def check_if_my_pokedex_is_empty(pokedex):
         return None
     return pokedex
 
-updated_pokedex = check_if_my_pokedex_is_empty(pokedex)
+pokedex = check_if_my_pokedex_is_empty(pokedex)
 
 class TestCreatePokedex(unittest.TestCase):
     def test_return_none_if_pokedex_is_empty(self):
@@ -69,10 +69,10 @@ class TestCreatePokedex(unittest.TestCase):
 
 
 #Q1: How many Pokemon have only one type? In other words, for how many Pokemon is Type2 blank?
-def calculate_total_pokemon_with_only_1_type(updated_pokedex):
+def calculate_total_pokemon_with_only_1_type(pokedex):
     total_pokemon = 0
 
-    for pokemon in updated_pokedex:
+    for pokemon in pokedex:
         type_2 = pokemon.type_2
         if type_2 == "":
             total_pokemon += 1
@@ -124,20 +124,31 @@ class TestPokemonWithOneType(unittest.TestCase):
 
 # ---------------------------------------------------------------------------------------------------------
 
+# Q2: What is the most common type? Include both Type1 and Type2 in your count.
 def find_the_elementals(pokedex):
-    elementals = []
+    elementals = {}
 
     for pokemon_char in pokedex:
         elemental_1 = pokemon_char.type_1
         elemental_2 = pokemon_char.type_2
-        if not elemental_1 in elementals:
-            elementals.append(elemental_1)
-        if not elemental_2 in elementals:
-            elementals.append(elemental_2)
+        speed = pokemon_char.speed
 
-    for i in elementals:
-        if i == "":
-            elementals.remove(i)
+        elementals.setdefault(elemental_1, {})
+        if elemental_2 != "":
+            elementals.setdefault(elemental_2, {})
+
+        elementals[elemental_1].setdefault("Count", 0)
+        elementals[elemental_1]["Count"] += 1
+        elementals[elemental_1].setdefault("Total Speed", 0)
+        elementals[elemental_1]["Total Speed"] += speed
+        elementals[elemental_1].setdefault("Avg Speed", 0)
+        
+        if elemental_2 != "":
+            elementals[elemental_2].setdefault("Count", 0)
+            elementals[elemental_2]["Count"] += 1
+            elementals[elemental_2].setdefault("Total Speed", 0)
+            elementals[elemental_2]["Total Speed"] += speed
+            elementals[elemental_2].setdefault("Avg Speed", 0)
 
     return elementals
 
@@ -145,7 +156,6 @@ def find_the_elementals(pokedex):
 elementals = find_the_elementals(pokedex)
 
 
-# Q2: What is the most common type? Include both Type1 and Type2 in your count.
 def find_most_common_type(pokedex, elementals):
     most_common_type = None
     most_common_count = None
@@ -169,10 +179,21 @@ def find_most_common_type(pokedex, elementals):
 
 # Correct answer for Q2 in their dataset: Water
 class TestFindMostCommonType(unittest.TestCase):
-    elementals = ["Fire", "Water", "Dragon", "Bug", "Grass", "Poison", "Normal", "Flying"]
+    #elementals = ["Fire", "Water", "Dragon", "Bug", "Grass", "Poison", "Normal", "Flying"]
+    elementals = {
+        "Grass": 4, 
+        "Poison": 8,
+        "Fire": 5, 
+        "Flying": 7, 
+        "Dragon": 1,
+        "Water": 4, 
+        "Bug": 7,
+        "Normal": 6,
+        "Ice": 1
+    }
 
     def test_return_None_if_there_are_no_elementals(self):
-        elementals = []
+        elementals = {}
         pokedex = []
         expected = "None"
 
@@ -181,7 +202,7 @@ class TestFindMostCommonType(unittest.TestCase):
         self.assertEqual(expected, actual)         
 
     def test_return_elemental_if_only_1_elemental_and_1_pokemon_with_1_type(self):
-        elementals = ["Grass"]
+        elementals = {"Grass": 1}
         pokedex = [Pokemon(1,"Bulbasaur","Grass","",45,49,49,65,65,45,1,"FALSE","FALSE")]
         expected = "Grass"
 
@@ -357,6 +378,7 @@ class TestFindPokemon_with_highest_defense_stats_excl_Mega_and_legendary(unittes
 
 # ---------------------------------------------------------------------------------------------------------
 
+#Q5: Among Legendary Pokemon, what is the most common type? Include both Type1 and Type2 in your count.
 def create_legendary_pokedex_by_type(pokedex):
     legendary_pokedex = {}
 
@@ -383,8 +405,6 @@ def create_legendary_pokedex_by_type(pokedex):
 legendary_pokedex_by_type = create_legendary_pokedex_by_type(pokedex)
 
 
-
-#Q5: Among Legendary Pokemon, what is the most common type? Include both Type1 and Type2 in your count.
 def find_most_common_type_among_legendary_pokemon(pokedex, legendary_pokedex_by_type):
     if len(pokedex) == 0:
         return None
@@ -448,37 +468,218 @@ def find_weakest_legendary_pokemon(pokedex):
             weakest_pokemon = name
             weakest_total_stat = total_stats
 
-
     return weakest_pokemon
 
 
+# Correct answer for Q6 in their dataset: Cosmog
 class TestFindWeakestLegendaryPokemon(unittest.TestCase):
-    def test_return_none_when_pokedex_is_empty(self):
-        pokedex = []
-        expected = None
-        actual = find_weakest_legendary_pokemon(pokedex)
-
-        self.assertEqual(expected, actual)
 
     def test_return_none_when_there_are_no_legendary_pokemon(self):
         pokedex = [Pokemon(1,"Bulbasaur","Grass","Poison",45,49,49,65,65,45,1,"FALSE","FALSE")]
         expected = None
         actual = find_weakest_legendary_pokemon(pokedex)
 
+        self.assertEqual(expected, actual)      
+
+
+    def test_return_pokemon_if_only_1_legendary_pokemon(self):
+        pokedex = [
+            Pokemon(1,"Bulbasaur","Grass","Poison",45,49,49,65,65,45,1,"FALSE","FALSE"),
+            Pokemon(144,"Articuno","Ice","",90,85,100,95,125,85,1,"TRUE","FALSE")
+            ]
+        expected = "Articuno"
+        actual = find_weakest_legendary_pokemon(pokedex)
+
+        self.assertEqual(expected, actual) 
+
+    def test_return_pokemon_with_weakest_stat_when_there_are_2_legendary_pokemon(self):
+        pokedex = [
+            Pokemon(1,"Bulbasaur","Grass","Poison",45,49,49,65,65,45,1,"TRUE","FALSE"),
+            Pokemon(144,"Articuno","Ice","",90,85,100,95,125,85,1,"TRUE","FALSE")
+            ]
+        expected = "Bulbasaur"
+        actual = find_weakest_legendary_pokemon(pokedex)
+
+        self.assertEqual(expected, actual)         
+
+
+    def test_return_pokemon_with_weakest_stat_when_there_are_multiple_legendary_pokemon(self):
+        pokedex = [
+            Pokemon(1,"Bulbasaur","Grass","Poison",45,49,49,65,65,45,1,"TRUE","FALSE"),
+            Pokemon(144,"Articuno","Ice","",90,85,100,95,125,85,1,"TRUE","FALSE"), 
+            Pokemon(3,"Venusaur","Grass","Poison",80,82,83,100,100,80,1,"TRUE","FALSE"),
+            Pokemon(4,"Charmander","Fire","",39,52,43,60,50,65,1,"TRUE","FALSE"), 
+            Pokemon(5,"Charmeleon","Fire","",58,64,58,80,65,80,1,"TRUE","FALSE")
+            ]
+        expected = "Charmander"
+        actual = find_weakest_legendary_pokemon(pokedex)
+
+        self.assertEqual(expected, actual)   
+
+
+    def test_return_pokemon_with_weakest_stat_with_sample_pokemon(self):
+        pokedex = create_pokedex()
+        expected = "Articuno"
+        actual = find_weakest_legendary_pokemon(pokedex)
+
+        self.assertEqual(expected, actual)
+    
+    
+
+# ---------------------------------------------------------------------------------------------------------
+
+#Q7: In terms of the sum of all six stats (HP, Attack, Defense, Special Attack, Special Defense, and Speed), 
+# what is the strongest non-Legendary, non-Mega Pokemon? If there is a tie, list any of the tying Pokemon.
+
+def find_strongest_non_mega_non_legendary_pokemon(pokedex):
+    strongest_pokemon = None
+    strongest_stats = None
+
+    for indiv_pokemon in pokedex:
+        name = indiv_pokemon.name
+        legendary = indiv_pokemon.legendary
+        mega = indiv_pokemon.mega
+        total_stats = indiv_pokemon.get_total_stats()
+
+        if legendary == "TRUE" or mega == "TRUE":
+            continue
+        elif strongest_pokemon == None or total_stats > strongest_stats:
+            strongest_stats = total_stats
+            strongest_pokemon = name
+
+
+    return strongest_pokemon
+
+
+#  Correct answer for Q7 in their dataset: Slaking
+class TestStrongestNonMegaNonLegendaryPokemon(unittest.TestCase):
+    def test_return_none_if_all_pokemon_are_legendary(self):
+        pokedex = [
+            Pokemon(1,"Bulbasaur","Grass","Poison",45,49,49,65,65,45,1,"TRUE","FALSE"),
+            Pokemon(2,"Ivysaur","Grass","Poison",60,62,63,80,80,60,1,"TRUE","FALSE"),
+        ]
+        expected = None 
+        actual = find_strongest_non_mega_non_legendary_pokemon(pokedex)
+
+        self.assertEqual(expected, actual)
+
+    def test_return_none_if_all_pokemon_are_mega(self):
+        pokedex = [
+            Pokemon(1,"Bulbasaur","Grass","Poison",45,49,49,65,65,45,1,"FALSE","TRUE"),
+            Pokemon(2,"Ivysaur","Grass","Poison",60,62,63,80,80,60,1,"FALSE","TRUE"),
+        ]
+        expected = None 
+        actual = find_strongest_non_mega_non_legendary_pokemon(pokedex)
+
+        self.assertEqual(expected, actual)
+
+
+    def test_return_pokemon_if_there_is_1_non_mega_non_legendary_pokemon(self):
+        pokedex = [
+            Pokemon(1,"Bulbasaur","Grass","Poison",45,49,49,65,65,45,1,"FALSE","FALSE"),
+            Pokemon(2,"Ivysaur","Grass","Poison",60,62,63,80,80,60,1,"FALSE","TRUE"),
+        ]
+        expected = "Bulbasaur" 
+        actual = find_strongest_non_mega_non_legendary_pokemon(pokedex)
+
+        self.assertEqual(expected, actual)
+
+
+    def test_return_pokemon_with_highest_stat_among_non_mega_pokemon(self):
+        pokedex = [
+            Pokemon(1,"Bulbasaur","Grass","Poison",45,49,49,65,65,45,1,"FALSE","FALSE"),
+            Pokemon(2,"Ivysaur","Grass","Poison",60,62,63,80,80,60,1,"FALSE","TRUE"),
+            Pokemon(3,"Venusaur","Grass","Poison",80,82,83,100,100,80,1,"FALSE","FALSE")
+        ]
+        expected = "Venusaur" 
+        actual = find_strongest_non_mega_non_legendary_pokemon(pokedex)
+
         self.assertEqual(expected, actual)        
 
 
+    def test_return_pokemon_with_highest_stat_among_non_legendary_pokemon(self):
+        pokedex = [
+            Pokemon(1,"Bulbasaur","Grass","Poison",45,49,49,65,65,45,1,"FALSE","FALSE"),
+            Pokemon(2,"Ivysaur","Grass","Poison",60,62,63,80,80,60,1,"TRUE","FALSE"),
+            Pokemon(3,"Venusaur","Grass","Poison",80,82,83,100,100,80,1,"FALSE","FALSE")
+        ]
+        expected = "Venusaur" 
+        actual = find_strongest_non_mega_non_legendary_pokemon(pokedex)
+
+        self.assertEqual(expected, actual) 
+
+    
+    def test_return_pokemon_with_highest_stat_with_full_pokedex(self):
+        "----------------------------------------------------------------"
+        pokedex = create_pokedex()
+        expected = "Charizard" 
+        actual = find_strongest_non_mega_non_legendary_pokemon(pokedex)
+
+        self.assertEqual(expected, actual)       
 
 
+# ---------------------------------------------------------------------------------------------------------
+
+#Q8: What type has the highest average Speed statistic? Include both Type1 and Type2 in your calculation.
+
+def find_type_with_highest_avg_speed(elementals):
+    if len(elementals) == 0:
+        return None
+
+    type_with_highest_avg_speed = None
+    highest_avg_speed = None
+    
+    for elemental, stats in elementals.items():
+        count = stats["Count"]
+        speed = stats["Total Speed"]
+        avg_speed = round(speed / count)
+        stats["Avg Speed"] = avg_speed
+
+        if type_with_highest_avg_speed == None or avg_speed > highest_avg_speed:
+            highest_avg_speed = avg_speed
+            type_with_highest_avg_speed = elemental
+    
+    return type_with_highest_avg_speed
 
 
+class TestFindTypeWithHighestAvgSpeed(unittest.TestCase):
+
+    def test_return_none_when_there_are_no_types(self):
+        elementals = {}
+        expected = None
+        actual = find_type_with_highest_avg_speed(elementals)
+
+        self.assertEqual(expected, actual)
+
+    def test_return_type_when_there_is_only_1_type(self):
+        elementals = {"Water": {"Count": 4, "Total Speed": 257, "Avg Speed": 64}}
+        expected = "Water"
+        actual = find_type_with_highest_avg_speed(elementals)
+
+        self.assertEqual(expected, actual)
 
 
+    def test_return_type_with_highest_avg_when_there_are_2_types(self):
+        elementals = {
+            "Water": {"Count": 4, "Total Speed": 257, "Avg Speed": 64}, 
+            "Grass": {"Count": 4, "Total Speed": 265, "Avg Speed": 66}
+            }
+        expected = "Grass"
+        actual = find_type_with_highest_avg_speed(elementals)
+
+        self.assertEqual(expected, actual)        
 
 
+    def test_return_type_with_highest_avg_when_given_all_elementals(self):
+        pokedex = create_pokedex()
+        elementals = find_the_elementals(pokedex)
+        expected = "Dragon"
+        actual = find_type_with_highest_avg_speed(elementals)
 
- 
-      
+        self.assertEqual(expected, actual)      
+
+
+# ---------------------------------------------------------------------------------------------------------
 
 
 
