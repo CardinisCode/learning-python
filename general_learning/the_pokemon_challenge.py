@@ -80,7 +80,6 @@ def calculate_total_pokemon_with_only_1_type(pokedex):
     return total_pokemon
 
 
-# Correct answer for Q1 in their dataset: 420
 class TestPokemonWithOneType(unittest.TestCase):
 
     def test_return_0_when_there_are_only_pokemon_with_2_types(self):
@@ -121,6 +120,11 @@ class TestPokemonWithOneType(unittest.TestCase):
         actual = calculate_total_pokemon_with_only_1_type(pokedex)
 
         self.assertEqual(expected, actual)
+
+print()
+print("Q1:", calculate_total_pokemon_with_only_1_type(pokedex))
+print("Correct answer for Q1 in their dataset: 420")
+print()
 
 # ---------------------------------------------------------------------------------------------------------
 
@@ -177,7 +181,6 @@ def find_most_common_type(pokedex, elementals):
     return most_common_type
 
 
-# Correct answer for Q2 in their dataset: Water
 class TestFindMostCommonType(unittest.TestCase):
     #elementals = ["Fire", "Water", "Dragon", "Bug", "Grass", "Poison", "Normal", "Flying"]
     elementals = {
@@ -245,6 +248,9 @@ class TestFindMostCommonType(unittest.TestCase):
         
         self.assertEqual(expected, actual)
 
+print("Q2:", find_most_common_type(pokedex, elementals))
+print("Correct answer for Q2 in their dataset: Water")
+print()
 
 # ---------------------------------------------------------------------------------------------------------
 
@@ -267,7 +273,6 @@ def find_pokemon_with_highest_hp(pokedex):
     return pokemon_with_highest_hp
 
 
-# Correct answer for Q3 in their dataset: Blissey
 class TestFindPokemon_with_highest_HP(unittest.TestCase):
 
     def test_return_pokemon_with_only_1_pokemon_in_pokedex(self):
@@ -307,6 +312,9 @@ class TestFindPokemon_with_highest_HP(unittest.TestCase):
 
         self.assertEqual(expected, actual)   
 
+print("Q3:", find_pokemon_with_highest_hp(pokedex))
+print("Correct answer for Q3 in their dataset: Blissey")
+print()
 
 # ---------------------------------------------------------------------------------------------------------
 
@@ -334,7 +342,7 @@ def find_pokemon_with_highest_defense_stats(pokedex):
     return pokemon_highest_defense
 
 
-# Correct answer for Q4 in their dataset: Shuckle
+
 class TestFindPokemon_with_highest_defense_stats_excl_Mega_and_legendary(unittest.TestCase): 
 
     def test_return_pokemon_when_there_is_one_pokemon(self):
@@ -375,6 +383,9 @@ class TestFindPokemon_with_highest_defense_stats_excl_Mega_and_legendary(unittes
 
         self.assertEqual(expected, actual) 
 
+print("Q4:", find_pokemon_with_highest_defense_stats(pokedex))
+print("Correct answer for Q4 in their dataset: Shuckle")
+print()
 
 # ---------------------------------------------------------------------------------------------------------
 
@@ -425,7 +436,6 @@ def find_most_common_type_among_legendary_pokemon(pokedex, legendary_pokedex_by_
     return most_common_type
 
 
-# Correct answer for Q5 in their dataset: Psychic
 # find_most_common_type_among_legendary_pokemon(pokedex)
 class TestFindMostCommonType_among_legendary_pokemon(unittest.TestCase):
     
@@ -444,6 +454,10 @@ class TestFindMostCommonType_among_legendary_pokemon(unittest.TestCase):
         actual = find_most_common_type_among_legendary_pokemon(pokedex, legendary_pokedex_by_type)
 
         self.assertEqual(expected, actual)
+
+print("Q5:", find_most_common_type_among_legendary_pokemon(pokedex, legendary_pokedex_by_type))
+print("Correct answer for Q5 in their dataset: Psychic")
+print()
 
 # ---------------------------------------------------------------------------------------------------------
 
@@ -471,7 +485,7 @@ def find_weakest_legendary_pokemon(pokedex):
     return weakest_pokemon
 
 
-# Correct answer for Q6 in their dataset: Cosmog
+
 class TestFindWeakestLegendaryPokemon(unittest.TestCase):
 
     def test_return_none_when_there_are_no_legendary_pokemon(self):
@@ -525,6 +539,9 @@ class TestFindWeakestLegendaryPokemon(unittest.TestCase):
         self.assertEqual(expected, actual)
     
     
+print("Q6:", find_weakest_legendary_pokemon(pokedex))
+print("Correct answer for Q6 in their dataset: Cosmog")
+print()
 
 # ---------------------------------------------------------------------------------------------------------
 
@@ -551,7 +568,7 @@ def find_strongest_non_mega_non_legendary_pokemon(pokedex):
     return strongest_pokemon
 
 
-#  Correct answer for Q7 in their dataset: Slaking
+
 class TestStrongestNonMegaNonLegendaryPokemon(unittest.TestCase):
     def test_return_none_if_all_pokemon_are_legendary(self):
         pokedex = [
@@ -618,11 +635,16 @@ class TestStrongestNonMegaNonLegendaryPokemon(unittest.TestCase):
         self.assertEqual(expected, actual)       
 
 
+print("Q7:", find_strongest_non_mega_non_legendary_pokemon(pokedex))
+print("Correct answer for Q7 in their dataset: Slaking")
+print() 
+
 # ---------------------------------------------------------------------------------------------------------
 
 #Q8: What type has the highest average Speed statistic? Include both Type1 and Type2 in your calculation.
+#Q9: Rounded to the nearest integer, what is that highest average Speed statistic? Include both Type1 and Type2 in your calculation
 
-def find_type_with_highest_avg_speed(elementals):
+def find_type_with_highest_avg_speed_and_highest_avg_speed(elementals):
     if len(elementals) == 0:
         return None
 
@@ -639,7 +661,19 @@ def find_type_with_highest_avg_speed(elementals):
             highest_avg_speed = avg_speed
             type_with_highest_avg_speed = elemental
     
-    return type_with_highest_avg_speed
+    return (type_with_highest_avg_speed, highest_avg_speed)
+
+
+type_with_highest_avg_speed = find_type_with_highest_avg_speed_and_highest_avg_speed(elementals)[0]
+highest_avg_speed = find_type_with_highest_avg_speed_and_highest_avg_speed(elementals)[1]
+
+print("Q8:", type_with_highest_avg_speed)
+print("Correct answer for Q8 in their dataset: Flying")
+print()
+print("Q9:", highest_avg_speed)
+print("Correct answer for Q9 in their dataset: 85")
+print()
+
 
 
 class TestFindTypeWithHighestAvgSpeed(unittest.TestCase):
@@ -647,14 +681,14 @@ class TestFindTypeWithHighestAvgSpeed(unittest.TestCase):
     def test_return_none_when_there_are_no_types(self):
         elementals = {}
         expected = None
-        actual = find_type_with_highest_avg_speed(elementals)
+        actual = find_type_with_highest_avg_speed_and_highest_avg_speed(elementals)
 
         self.assertEqual(expected, actual)
 
     def test_return_type_when_there_is_only_1_type(self):
         elementals = {"Water": {"Count": 4, "Total Speed": 257, "Avg Speed": 64}}
         expected = "Water"
-        actual = find_type_with_highest_avg_speed(elementals)
+        actual = find_type_with_highest_avg_speed_and_highest_avg_speed(elementals)[0]
 
         self.assertEqual(expected, actual)
 
@@ -665,7 +699,7 @@ class TestFindTypeWithHighestAvgSpeed(unittest.TestCase):
             "Grass": {"Count": 4, "Total Speed": 265, "Avg Speed": 66}
             }
         expected = "Grass"
-        actual = find_type_with_highest_avg_speed(elementals)
+        actual = find_type_with_highest_avg_speed_and_highest_avg_speed(elementals)[0]
 
         self.assertEqual(expected, actual)        
 
@@ -674,16 +708,171 @@ class TestFindTypeWithHighestAvgSpeed(unittest.TestCase):
         pokedex = create_pokedex()
         elementals = find_the_elementals(pokedex)
         expected = "Dragon"
-        actual = find_type_with_highest_avg_speed(elementals)
+        actual = find_type_with_highest_avg_speed_and_highest_avg_speed(elementals)[0]
 
-        self.assertEqual(expected, actual)      
+        self.assertEqual(expected, actual) 
+
+
+    def test_return_highest_avg_when_given_all_elementals(self):
+        pokedex = create_pokedex()
+        elementals = find_the_elementals(pokedex)
+        expected = 100
+        actual = find_type_with_highest_avg_speed_and_highest_avg_speed(elementals)[1]
+
+        self.assertEqual(expected, actual)              
 
 
 # ---------------------------------------------------------------------------------------------------------
 
+# Q10: Among all 7 Pokemon generations, 
+# which generation had the highest average sum of all six stats (HP, Attack, Defense, Special Attack, Special Defense, and Speed)?
+
+# Q11: Rounded to the nearest integer, 
+# how much higher was that statistic than the next-closest generation's average sum of all six stats 
+# (HP, Attack, Defense, Special Attack, Special Defense, and Speed)?
+
+def create_pokedex_by_generation(pokedex):
+    pokedex_by_generation = {}
+    
+    for pokemon_char in pokedex:
+        total_stats = pokemon_char.get_total_stats()
+        generation = pokemon_char.generation
+        pokedex_by_generation.setdefault(generation, {})
+        pokedex_by_generation[generation].setdefault("Count", 0)
+        pokedex_by_generation[generation]["Count"] += 1
+        pokedex_by_generation[generation].setdefault("Total Stats", 0)
+        pokedex_by_generation[generation]["Total Stats"] += total_stats
+
+    for generation in pokedex_by_generation.keys():
+        total_stats = pokedex_by_generation[generation]["Total Stats"]
+        count = pokedex_by_generation[generation]["Count"]
+        avg_stat = round(total_stats / count)
+        pokedex_by_generation[generation].setdefault("Avg Stat", 0)
+        pokedex_by_generation[generation]["Avg Stat"] = avg_stat
+
+    return pokedex_by_generation
+
+pokedex_by_generation = create_pokedex_by_generation(pokedex)
+# print("pokedex_by_generation:", pokedex_by_generation)
+
+def find_generation_with_highest_avg_total_stat(pokedex_by_generation):
+    if len(pokedex_by_generation) == 0:
+        return None
+
+    highest_avg_stat = None
+    generation_with_highest_stat = None
+    generations_present = []
+
+    for generation, stats in pokedex_by_generation.items():
+        avg_stat = stats["Avg Stat"]
+        generations_present.append(generation)
+
+        if generation_with_highest_stat == None or avg_stat > highest_avg_stat:
+            highest_avg_stat = avg_stat
+            generation_with_highest_stat = generation
+
+    second_highest_avg_stat = None
+    generation_with_2nd_highest_stat = None
+    difference = None
+
+    for generation, stats in pokedex_by_generation.items():
+        avg_stat = stats["Avg Stat"]
+
+        if generation == generation_with_highest_stat:
+            continue
+
+        elif generation_with_2nd_highest_stat == None or avg_stat > second_highest_avg_stat:
+            second_highest_avg_stat = avg_stat
+            generation_with_2nd_highest_stat = generation    
+
+    if second_highest_avg_stat != None:
+        difference = abs(highest_avg_stat - second_highest_avg_stat)
+
+    return (generation_with_highest_stat, difference)
+
+print("Q10:", find_generation_with_highest_avg_total_stat(pokedex_by_generation)[0])
+print("Correct answer for Q10 in their dataset: 7")
+print()
+difference_between_the_highest_and_2nd_highest_stat = find_generation_with_highest_avg_total_stat(pokedex_by_generation)[1]
+print("Q11:", difference_between_the_highest_and_2nd_highest_stat)
+print("Note my answer to Q11 is:", difference_between_the_highest_and_2nd_highest_stat, "because the sample_pokemon.csv only has 1 generation")
+print("Correct answer for Q11 in their dataset: 2")
+
+class TestFindGenerationWithHighestAvgTotalStat(unittest.TestCase):
+    def test_return_none_if_there_are_no_generations(self):
+        pokedex = {}
+        expected = None
+        actual = find_generation_with_highest_avg_total_stat(pokedex)
+
+        self.assertEqual(expected, actual)
 
 
+    def test_if_return_generation_if_there_is_only_1(self):
+        pokedex = {1: {"Count": 5, "Total Stats": 1000, "Avg Stat": 200}}
+        expected = 1
+        actual = find_generation_with_highest_avg_total_stat(pokedex)[0]
 
+        self.assertEqual(expected, actual)
+
+
+    def test_returns_generation_with_highest_avg_stat_when_there_are_2_generations(self):
+        pokedex = {
+            1: {"Count": 5, "Total Stats": 1000, "Avg Stat": 200}, 
+            2: {"Count": 2, "Total Stats": 500, "Avg Stat": 250}
+            }
+        expected = 2
+        actual = find_generation_with_highest_avg_total_stat(pokedex)[0]
+
+        self.assertEqual(expected, actual)        
+
+    def test_return_generation_with_highest_avg_stat_when_there_are_numerous_generations(self):
+        pokedex = create_pokedex()
+        pokedex_by_generation = create_pokedex_by_generation(pokedex)
+        expected = 1
+        actual = find_generation_with_highest_avg_total_stat(pokedex_by_generation)[0]
+
+        self.assertEqual(expected, actual) 
+
+
+    def test_return_none_if_there_is_only_1_generation_present(self):
+        pokedex = create_pokedex()
+        pokedex_by_generation = create_pokedex_by_generation(pokedex)
+        expected = None
+        actual = find_generation_with_highest_avg_total_stat(pokedex_by_generation)[1]
+
+        self.assertEqual(expected, actual)               
+
+
+    def test_return_difference_if_there_are_2_generations(self):
+        pokedex = {
+            1: {"Count": 5, "Total Stats": 1000, "Avg Stat": 200}, 
+            2: {"Count": 2, "Total Stats": 500, "Avg Stat": 250}
+            }
+
+        expected = 50
+        actual = find_generation_with_highest_avg_total_stat(pokedex)[1]
+
+        self.assertEqual(expected, actual)
+
+
+    def test_return_difference_if_there_are_multiple_generations(self):
+        pokedex = {
+            1: {"Count": 5, "Total Stats": 1000, "Avg Stat": 200}, 
+            2: {"Count": 2, "Total Stats": 500, "Avg Stat": 250}, 
+            3: {"Count": 1, "Total Stats": 100, "Avg Stat": 100}
+            }
+
+        expected = 50
+        actual = find_generation_with_highest_avg_total_stat(pokedex)[1]
+
+        self.assertEqual(expected, actual)        
+
+
+# ---------------------------------------------------------------------------------------------------------
+
+# Q12: Rounded to the nearest integer, 
+# how much higher is the average sum of all six stats among Mega Pokemon than their non-Mega versions? 
+# Note that Mega Pokemon share the same Number (the first column) as their non-Mega versions, which will allow you to find all Pokemon that have a Mega version.
 
 
 if __name__ == "__main__":

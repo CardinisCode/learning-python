@@ -2,7 +2,6 @@
 #about every pokemon through Generation 7:
 
 
-
 #We've also provided a sample subset of the data in
 #sample.csv.
 #
