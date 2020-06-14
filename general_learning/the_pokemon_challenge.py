@@ -30,6 +30,7 @@ class Pokemon:
     def get_total_stats(self):
         total_stats = self.hp + self.attack + self.defense + self.special_attack + self.special_defense + self.speed
         return total_stats
+
         
 
 
@@ -797,6 +798,7 @@ difference_between_the_highest_and_2nd_highest_stat = find_generation_with_highe
 print("Q11:", difference_between_the_highest_and_2nd_highest_stat)
 print("Note my answer to Q11 is:", difference_between_the_highest_and_2nd_highest_stat, "because the sample_pokemon.csv only has 1 generation")
 print("Correct answer for Q11 in their dataset: 2")
+print()
 
 class TestFindGenerationWithHighestAvgTotalStat(unittest.TestCase):
     def test_return_none_if_there_are_no_generations(self):
@@ -826,19 +828,35 @@ class TestFindGenerationWithHighestAvgTotalStat(unittest.TestCase):
         self.assertEqual(expected, actual)        
 
     def test_return_generation_with_highest_avg_stat_when_there_are_numerous_generations(self):
+        pokedex = {
+            1: {"Count": 5, "Total Stats": 1000, "Avg Stat": 200}, 
+            2: {"Count": 2, "Total Stats": 500, "Avg Stat": 250},
+            3: {"Count": 1, "Total Stats": 100, "Avg Stat": 100}
+            }
+        expected = 2
+
+        actual = find_generation_with_highest_avg_total_stat(pokedex)[0]
+
+        self.assertEqual(expected, actual)
+
+    def test_return_generation_with_highest_avg_stat_when_given_full_pokedex(self):
         pokedex = create_pokedex()
         pokedex_by_generation = create_pokedex_by_generation(pokedex)
         expected = 1
+
         actual = find_generation_with_highest_avg_total_stat(pokedex_by_generation)[0]
 
-        self.assertEqual(expected, actual) 
+        self.assertEqual(expected, actual)
 
 
+    # From this point we're  testing the difference (find_generation_with_highest_avg_total_stat(pokedex_by_generation)[1])
     def test_return_none_if_there_is_only_1_generation_present(self):
-        pokedex = create_pokedex()
-        pokedex_by_generation = create_pokedex_by_generation(pokedex)
+        pokedex = {
+            1: {"Count": 5, "Total Stats": 1000, "Avg Stat": 200}, 
+            }
         expected = None
-        actual = find_generation_with_highest_avg_total_stat(pokedex_by_generation)[1]
+        
+        actual = find_generation_with_highest_avg_total_stat(pokedex)[1]
 
         self.assertEqual(expected, actual)               
 
@@ -873,6 +891,171 @@ class TestFindGenerationWithHighestAvgTotalStat(unittest.TestCase):
 # Q12: Rounded to the nearest integer, 
 # how much higher is the average sum of all six stats among Mega Pokemon than their non-Mega versions? 
 # Note that Mega Pokemon share the same Number (the first column) as their non-Mega versions, which will allow you to find all Pokemon that have a Mega version.
+
+def create_pokedex_by_ID(pokedex):
+    pokedex_by_ID = {}
+    for pokemon_char in pokedex:
+        name = pokemon_char.name
+        number = pokemon_char.number
+        legendary = pokemon_char.legendary
+
+        if legendary == "TRUE":
+            continue
+        else: 
+            pokedex_by_ID.setdefault(number, [])
+            pokedex_by_ID[number].append(name)
+
+    return pokedex_by_ID
+
+pokedex_by_ID = create_pokedex_by_ID(pokedex)
+
+
+def create_mega_vs_non_mega_pokedex(pokedex, pokedex_by_ID):
+    mega_vs_non_mega_pokedex = {
+        "Mega Pokemon": {"Count": 0, "Total Stats": 0, "Avg Stats": 0},
+        "Non Mega Pokemon": {"Count": 0, "Total Stats": 0, "Avg Stats": 0}
+    }
+
+    normal_pokemon = []
+    for names in pokedex_by_ID.values():
+        # print(pokemon_ID, names, len(names))
+        if len(names) <= 1 :
+            continue 
+        normal_pokemon.append(names[0])
+    
+    for pokemon_char in pokedex:
+        name = pokemon_char.name
+        mega = pokemon_char.mega
+        legendary = pokemon_char.legendary
+        total_stat = pokemon_char.get_total_stats()
+
+        if legendary == "TRUE":
+            continue
+
+        elif mega == "TRUE":
+            mega_vs_non_mega_pokedex["Mega Pokemon"]["Count"] += 1
+            mega_vs_non_mega_pokedex["Mega Pokemon"]["Total Stats"] += total_stat
+        
+        elif name in normal_pokemon:
+            mega_vs_non_mega_pokedex["Non Mega Pokemon"]["Count"] += 1
+            mega_vs_non_mega_pokedex["Non Mega Pokemon"]["Total Stats"] += total_stat
+
+    mega_stats = mega_vs_non_mega_pokedex["Mega Pokemon"]["Total Stats"]
+    mega_count = mega_vs_non_mega_pokedex["Mega Pokemon"]["Count"]
+
+    non_mega_stats = mega_vs_non_mega_pokedex["Non Mega Pokemon"]["Total Stats"] 
+    non_mega_count = mega_vs_non_mega_pokedex["Non Mega Pokemon"]["Count"]
+
+    if mega_count == 0 or mega_stats == 0:
+        return None
+    elif non_mega_count == 0 or non_mega_stats == 0:
+        return None
+    mega_vs_non_mega_pokedex["Mega Pokemon"]["Avg Stats"] = mega_stats / mega_count
+    mega_vs_non_mega_pokedex["Non Mega Pokemon"]["Avg Stats"] = non_mega_stats / non_mega_count
+
+    return mega_vs_non_mega_pokedex
+
+
+mega_vs_non_mega_pokedex = create_mega_vs_non_mega_pokedex(pokedex, pokedex_by_ID)
+print(mega_vs_non_mega_pokedex)
+print()
+
+
+
+def calculate_difference_between_mega_and_non_mega_avg_stats(mega_vs_non_mega_pokedex):
+    if mega_vs_non_mega_pokedex == None or len(mega_vs_non_mega_pokedex) == 0:
+        return None
+
+    for mega_status in mega_vs_non_mega_pokedex.keys():
+        print(mega_status)
+
+    mega_avg_stat = mega_vs_non_mega_pokedex["Mega Pokemon"]["Avg Stats"]
+    non_mega_avg_stat = mega_vs_non_mega_pokedex["Non Mega Pokemon"]["Avg Stats"]
+    difference = round(abs(mega_avg_stat - non_mega_avg_stat))
+
+    return difference
+
+difference_between_mega_and_non_mega_avg_stats = calculate_difference_between_mega_and_non_mega_avg_stats(mega_vs_non_mega_pokedex)
+print(difference_between_mega_and_non_mega_avg_stats)
+
+
+class TestCompareMegaPokemonToNonPokemonCounterparts(unittest.TestCase):
+    print("------------------------------------------------------------------------")
+    def test_return_none_if_there_are_no_mega_pokemon(self):
+        pokedex = {
+            Pokemon(5,"Charmeleon","Fire","",58,64,58,80,65,80,1,"FALSE","FALSE"),
+        }
+        pokedex_by_ID = {
+            5: ["Charmeleon"]
+        }
+        expected = None 
+
+        actual = create_mega_vs_non_mega_pokedex(pokedex, pokedex_by_ID)
+
+        self.assertEqual(expected, actual)
+
+
+    def test_return_none_if_there_are_non_mega_pokemon(self):
+        pokedex = {
+            Pokemon(6,"Mega Charizard X","Fire","Dragon",78,130,111,130,85,100,1,"FALSE","TRUE"),
+        }
+        pokedex_by_ID = {
+            6: ["Mega Charizard X"]
+        }
+        expected = None 
+
+        actual = create_mega_vs_non_mega_pokedex(pokedex, pokedex_by_ID)
+
+        self.assertEqual(expected, actual)
+
+
+    def test_return_none_if_mega_vs_non_mega_pokedex_is_empty(self):
+        pokedex = {}
+        expected = None
+        
+        actual = calculate_difference_between_mega_and_non_mega_avg_stats(pokedex)
+
+        self.assertEqual(expected, actual)
+
+
+    def test_return_0_if_both_mega_and_non_mega_have_the_same_avg_stats(self):
+        pokedex = {
+            'Mega Pokemon': {'Count': 1, 'Total Stats': 500, "Avg Stats": 500}, 
+            'Non Mega Pokemon': {'Count': 1, 'Total Stats': 500, "Avg Stats": 500}
+            }
+        expected = 0
+
+        actual = calculate_difference_between_mega_and_non_mega_avg_stats(pokedex)
+
+        self.assertEqual(expected, actual)
+
+
+    def test_return_difference_between_mega_and_non_mega_avg_stats(self):
+        pokedex = {
+            'Mega Pokemon': {'Count': 3, 'Total Stats': 1500, "Avg Stats": 500}, 
+            'Non Mega Pokemon': {'Count': 4, 'Total Stats': 1000, "Avg Stats": 250}}
+        expected = 250
+
+        actual = calculate_difference_between_mega_and_non_mega_avg_stats(pokedex)
+
+        self.assertEqual(expected, actual)       
+
+
+    def test_return_difference_between_mega_and_non_mega_avg_stats_with_sample_data(self):
+        print("------------------------------------------------------------------------")
+        pokedex = create_pokedex()
+        pokedex_by_ID = create_pokedex_by_ID(pokedex)
+        print(pokedex_by_ID)
+        mega_vs_non_mega_pokedex = create_mega_vs_non_mega_pokedex(pokedex, pokedex_by_ID)
+        print()
+        print(mega_vs_non_mega_pokedex)
+        expected = 107
+
+        actual = calculate_difference_between_mega_and_non_mega_avg_stats(mega_vs_non_mega_pokedex)
+
+        self.assertEqual(expected, actual)   
+
+
 
 
 if __name__ == "__main__":
