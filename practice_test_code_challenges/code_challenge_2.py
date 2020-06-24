@@ -53,17 +53,26 @@ def joynernacci_iterative(number):
         if index == number:
             return joynernacci_sequence[index]
 
-# With Recursion:
-def joynernacci_recursive(index):
-    if index == 1 or index == 2:
-        return 1
+# With Recursion (1st pass):
+# def joynernacci_recursive(index):
+#     if index == 1 or index == 2:
+#         return 1
     
-    elif index % 2 == 0:
-        return joynernacci_recursive(index -1) + joynernacci_recursive(index -2)
+#     elif index % 2 == 0:
+#         return joynernacci_recursive(index -1) + joynernacci_recursive(index -2)
 
-    elif index % 2 == 1:
-        return abs(joynernacci_recursive(index -1) - joynernacci_recursive(index -2))
+#     elif index % 2 == 1:
+#         return abs(joynernacci_recursive(index -1) - joynernacci_recursive(index -2))
         
+
+# My second attempt at this challenge seems to be shorter:
+def joynernacci(n):
+    if n <= 1:
+        return n
+    elif n % 2 == 1:
+        return abs(joynernacci(n -1) - joynernacci(n -2))
+    elif n % 2 == 0:
+        return joynernacci(n -1) + joynernacci(n -2)
 
 #Below are some lines of code that will test your function.
 #You can change the value of the variable(s) to test your
@@ -75,9 +84,10 @@ print(joynernacci_iterative(3))
 print(joynernacci_iterative(5))
 print(joynernacci_iterative(12))
 
-print(joynernacci_recursive(3))
-print(joynernacci_recursive(5))
-print(joynernacci_recursive(12))
+print(joynernacci(3))
+print(joynernacci(5))
+print(joynernacci(12))
+print(joynernacci(19))
 
 
 class TestJoyneracci(unittest.TestCase):
@@ -108,7 +118,7 @@ class TestJoyneracci(unittest.TestCase):
     def test_third_index_returns_0_with_recursion(self):
         print("----------------------------------")
         expected = 0
-        actual = joynernacci_recursive(3)
+        actual = joynernacci(3)
 
         self.assertEqual(expected, actual)
 
@@ -116,7 +126,7 @@ class TestJoyneracci(unittest.TestCase):
     def test_fifth_index_returns_one_with_recursion(self):
         print("----------------------------------")
         expected = 1
-        actual = joynernacci_recursive(5)
+        actual = joynernacci(5)
 
         self.assertEqual(expected, actual) 
 
@@ -124,9 +134,16 @@ class TestJoyneracci(unittest.TestCase):
     def test_twelth_index_returns_eight_with_recursion(self):
         print("----------------------------------")
         expected = 8
-        actual = joynernacci_recursive(12)
+        actual = joynernacci(12)
 
-        self.assertEqual(expected, actual)       
+        self.assertEqual(expected, actual)     
+
+
+    def test_ninetheenth_index_returns_21_with_recursion(self):
+        expected = 21
+        actual = joynernacci(19) 
+
+        self.assertEqual(expected, actual) 
 
 
 if __name__ == "__main__":

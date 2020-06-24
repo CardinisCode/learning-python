@@ -46,16 +46,19 @@
 
 import unittest
 #Write your function here!
-def rabbit_hole(dictionary, search_key):
-    try:
-        current_value = dictionary[search_key]
-        return rabbit_hole(dictionary, current_value)
+# With my 2nd pass at this challenge, I came to the same solution with slightly different naming of the variables. 
+# I did however solve this a lot quicker than I did the first time :D 
 
-    except KeyError:
-        return search_key
+def rabbit_hole(animal_dict, animal):
+    try:
+        current_animal = animal_dict[animal]
+        return rabbit_hole(animal_dict, current_animal)
 
     except RecursionError:
-        return False
+        return False 
+    
+    except KeyError:
+        return animal
 
 
 #Below are some lines of code that will test your function.
