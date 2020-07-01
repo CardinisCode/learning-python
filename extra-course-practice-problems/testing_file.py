@@ -1,28 +1,48 @@
-new_list = [9, 12, 13, 13, 15, 15, 19, 21, 23, 25, 25, 27, 27, 28, 29, 29, 30, 33, 33, 40]
+from datetime import datetime
+class Meeting:
+    def __init__(self, start_time, end_time):
+        self.start_time = start_time
+        self.end_time = end_time
 
-def find_item_using_binary_search(new_list, search_term, checks_done):
-    mid_index = len(new_list) // 2
-    mid_value = new_list[mid_index]
-    print(mid_value, "at index", mid_index)
-    checks_done += 1
-    print("checks_done so far:", checks_done)
-
-
-    if mid_value == search_term:
-        return mid_index, checks_done
-
-    elif len(new_list) == 1 and not mid_value == search_term:
-        return -1
-
-    elif mid_value > search_term:
-        list_to_search = new_list[:mid_index]
-        return find_item_using_binary_search(list_to_search, search_term, checks_done)
-    
-    elif mid_value < search_term:
-        return find_item_using_binary_search(new_list[mid_index:], search_term, checks_done)
-
-
-checks_done = 0
-print("Checking my list for 33:", find_item_using_binary_search(new_list, 33, checks_done))
 print()
-print("Checking my list for 100:", find_item_using_binary_search(new_list, 100, checks_done))
+#Write your function here!
+def check_availability(calendar, proposed_meeting):
+    for meeting in calendar:
+        start_time = meeting.start_time
+        end_time = meeting.end_time
+
+        # if proposed_meeting >= start_time:
+        #     print("start_time:", start_time, "vs proposed_meeting:", proposed_meeting)
+        #     print("The proposed meeting either starts at the same time or after the proposed meeting starts")
+        #     print()
+
+        # if proposed_meeting < end_time:
+        #     print("end_time:", end_time, "vs proposed_meeting:", proposed_meeting)
+        #     print("The proposed starts before the current scheduled meeting ends")
+        #     print()
+
+        print(proposed_meeting)
+        print(start_time, "to", end_time)
+        
+        if proposed_meeting >= start_time and proposed_meeting < end_time:
+            print("Proposed meeting:", proposed_meeting)
+            print("scheduled meeting: starts at", start_time, "and ends at", end_time)
+            print("The proposed meeting both starts after the scheduled meeting AND ends before the scheduled meeting ends")
+            return False
+            
+
+    
+    return True
+
+
+#Below are some lines of code that will test your function.
+#You can change the value of the variable(s) to test your
+#function with different inputs.
+#
+#If your function works correctly, this will originally
+#print: True, then False
+meetings = [Meeting(datetime(2018, 8, 1, 9, 0, 0), datetime(2018, 8, 1, 11, 0, 0)),
+            Meeting(datetime(2018, 8, 1, 15, 0, 0), datetime(2018, 8, 1, 16, 0, 0)),
+            Meeting(datetime(2018, 8, 2, 9, 0, 0), datetime(2018, 8, 2, 10, 0, 0))]
+print(check_availability(meetings, datetime(2018, 8, 1, 12, 0, 0)))
+print(check_availability(meetings, datetime(2018, 8, 1, 10, 0, 0)))

@@ -18,47 +18,79 @@
 import unittest
 #Write your function here!
 
-def remove_unwanted_characters(string):
-    updated_string = ""
-
-    for letter in string:
-        ordinal_value = ord(letter)
-        if ordinal_value >= 65 and ordinal_value <= 90:
-            updated_string += letter.lower()
-        elif ordinal_value >= 97 and ordinal_value <= 122:
-            updated_string += letter
-
-    return  updated_string
-
-
-def sort_my_string(string):
-    updated_string = ""
-    ordinal_list = []
-
-    for letter in string:
-        ordinal_value = ord(letter)
-        ordinal_list.append(ordinal_value)
-
-    ordinal_list.sort()
-
-    for ordinal in ordinal_list:
-        updated_string += chr(ordinal)
-
-    return updated_string
-
-
-
-def are_anagrams(string_1, string_2):
-    updated_string_1 = remove_unwanted_characters(string_1)
-    updated_string_2 = remove_unwanted_characters(string_2)
-
-    updated_string_1 = sort_my_string(updated_string_1)
-    updated_string_2 = sort_my_string(updated_string_2)
+# My 2nd take at this challenge:
+def sort_my_string(current_string):
+    current_string = current_string.lower()
+    string_ordinals_as_list = []
     
-    if updated_string_1 == updated_string_2:
-        return True
+    for letter in current_string:
+        ordinal_value = ord(letter)
+        if ordinal_value >= 97 and ordinal_value <= 122:
+            string_ordinals_as_list.append(ordinal_value)
+            
+    string_ordinals_as_list.sort()
+    sorted_string = ""
+    
+    for ordinal in string_ordinals_as_list:
+        chr_value = chr(ordinal)
+        sorted_string += chr_value
+    
+    return sorted_string
+    
 
+def are_anagrams(first_string, second_string):
+    first_string = sort_my_string(first_string)
+    second_string = sort_my_string(second_string)
+    
+    if first_string == second_string:
+        return True
+    
     return False
+
+
+# MY first take at this challenge: 
+
+# def remove_unwanted_characters(string):
+#     updated_string = ""
+
+#     for letter in string:
+#         ordinal_value = ord(letter)
+#         if ordinal_value >= 65 and ordinal_value <= 90:
+#             updated_string += letter.lower()
+#         elif ordinal_value >= 97 and ordinal_value <= 122:
+#             updated_string += letter
+
+#     return  updated_string
+
+
+# def sort_my_string(string):
+#     updated_string = ""
+#     ordinal_list = []
+
+#     for letter in string:
+#         ordinal_value = ord(letter)
+#         ordinal_list.append(ordinal_value)
+
+#     ordinal_list.sort()
+
+#     for ordinal in ordinal_list:
+#         updated_string += chr(ordinal)
+
+#     return updated_string
+
+
+
+# def are_anagrams(string_1, string_2):
+#     updated_string_1 = remove_unwanted_characters(string_1)
+#     updated_string_2 = remove_unwanted_characters(string_2)
+
+#     updated_string_1 = sort_my_string(updated_string_1)
+#     updated_string_2 = sort_my_string(updated_string_2)
+    
+#     if updated_string_1 == updated_string_2:
+#         return True
+
+#     return False
 
 
 #Below are some lines of code that will test your function.
@@ -89,12 +121,13 @@ class TestCheckForAnagrams(unittest.TestCase):
 
         self.assertEqual(expected, actual)
 
-    def test_remove_unwanted_characters(self):
-        print("--------------------------")
-        expected = "elvis"
-        actual = remove_unwanted_characters("Elvis")
+    # This test only works with my first attempt. This functionality was covered by the sort_my_string() function. 
+    # def test_remove_unwanted_characters(self):
+    #     print("--------------------------")
+    #     expected = "elvis"
+    #     actual = remove_unwanted_characters("Elvis")
 
-        self.assertEqual(expected, actual)
+    #     self.assertEqual(expected, actual)
 
     def test_sorting_characters_in_string(self):
         print("--------------------------")
