@@ -36,53 +36,69 @@ class Meeting:
         self.start_time = start_time
         self.end_time = end_time
     
-    # My partner created this method to help me convert their test data into the (correct) datetime format:
-    @staticmethod
-    def from_string(start, end):
-        #2018-08-07 11:30:00
-        def get_date_time(time_string):
-            date, time = time_string.split(" ")
-            year, month, day = date.split("-")
-            hour, minute, second = time.split(":")
-            return datetime(int(year), int(month), int(day), int(hour), int(minute), int(second))
-
-        return Meeting(get_date_time(start), get_date_time(end))
-
-
-#Write your function here!
-def check_availability(scheduled_meetings, potential_meeting):
-    print("The potential meeting is at:", potential_meeting)
-    potential_date_time = datetime(
-        int(potential_meeting.year),
-        int(potential_meeting.month),
-        int(potential_meeting.day),
-        int(potential_meeting.hour),
-        int(potential_meeting.minute),
-        int(potential_meeting.second)
-    )
+# My 2nd attempt at this challenge: 
+def check_availability(calendar, proposed_meeting):
+    for meeting in calendar:
+        start_time = meeting.start_time
+        end_time = meeting.end_time
         
-    for meeting in scheduled_meetings:
-        start_date_time = datetime(
-            int(meeting.start_time.year),
-            int(meeting.start_time.month),
-            int(meeting.start_time.day),
-            int(meeting.start_time.hour),
-            int(meeting.start_time.minute),
-            int(meeting.start_time.second)
-        )
-        end_date_time = datetime(
-            int(meeting.end_time.year),
-            int(meeting.end_time.month),
-            int(meeting.end_time.day),
-            int(meeting.end_time.hour),
-            int(meeting.end_time.minute),
-            int(meeting.end_time.second)
-        )
-
-        if potential_date_time >= start_date_time and potential_date_time < end_date_time:
+        if proposed_meeting >= start_time and proposed_meeting < end_time:
             return False
-        
+            
     return True
+
+
+
+# My first attempt at this challenge with the help of my partner:    
+#     # My partner created this method to help me convert their test data into the (correct) datetime format:
+#      (thus enabling us to write the tests in normal text format every time and this function converts the string
+#       into the required datetime format.) 
+#     @staticmethod
+#     def from_string(start, end):
+#         #2018-08-07 11:30:00
+#         def get_date_time(time_string):
+#             date, time = time_string.split(" ")
+#             year, month, day = date.split("-")
+#             hour, minute, second = time.split(":")
+#             return datetime(int(year), int(month), int(day), int(hour), int(minute), int(second))
+
+#         return Meeting(get_date_time(start), get_date_time(end))
+
+
+# #Write your function here!
+# def check_availability(scheduled_meetings, potential_meeting):
+#     print("The potential meeting is at:", potential_meeting)
+#     potential_date_time = datetime(
+#         int(potential_meeting.year),
+#         int(potential_meeting.month),
+#         int(potential_meeting.day),
+#         int(potential_meeting.hour),
+#         int(potential_meeting.minute),
+#         int(potential_meeting.second)
+#     )
+        
+#     for meeting in scheduled_meetings:
+#         start_date_time = datetime(
+#             int(meeting.start_time.year),
+#             int(meeting.start_time.month),
+#             int(meeting.start_time.day),
+#             int(meeting.start_time.hour),
+#             int(meeting.start_time.minute),
+#             int(meeting.start_time.second)
+#         )
+#         end_date_time = datetime(
+#             int(meeting.end_time.year),
+#             int(meeting.end_time.month),
+#             int(meeting.end_time.day),
+#             int(meeting.end_time.hour),
+#             int(meeting.end_time.minute),
+#             int(meeting.end_time.second)
+#         )
+
+#         if potential_date_time >= start_date_time and potential_date_time < end_date_time:
+#             return False
+        
+#     return True
 
 
 
@@ -165,23 +181,23 @@ class TestCheckAvailability(unittest.TestCase):
         self.assertEqual(expected, actual)
 
 
-    def test_failing_2(self):
-        print("---------------------")
-        meetings = [
-            Meeting.from_string("2018-08-07 10:15:00", "2018-08-07 11:30:00"), 
-            Meeting.from_string("2018-08-06 16:45:00", "2018-08-06 19:45:00"), 
-            Meeting.from_string("2018-08-06 10:30:00", "2018-08-06 12:00:00"), 
-            Meeting.from_string("2018-08-04 13:30:00", "2018-08-04 15:00:00"), 
-            Meeting.from_string("2018-08-03 13:30:00", "2018-08-03 15:00:00"), 
-            Meeting.from_string("2018-08-01 11:15:00", "2018-08-01 12:15:00"), 
-            Meeting.from_string("2018-08-01 16:45:00", "2018-08-01 18:45:00"), 
-            Meeting.from_string("2018-08-06 14:15:00", "2018-08-06 16:30:00")
-            ]
-        expected = True
-        actual = check_availability(meetings, datetime(2018, 8, 7, 11, 30, 0))
-        # 2018-08-07 11:30:00
+    # def test_failing_2(self):
+    #     print("---------------------")
+    #     meetings = [
+    #         Meeting.from_string("2018-08-07 10:15:00", "2018-08-07 11:30:00"), 
+    #         Meeting.from_string("2018-08-06 16:45:00", "2018-08-06 19:45:00"), 
+    #         Meeting.from_string("2018-08-06 10:30:00", "2018-08-06 12:00:00"), 
+    #         Meeting.from_string("2018-08-04 13:30:00", "2018-08-04 15:00:00"), 
+    #         Meeting.from_string("2018-08-03 13:30:00", "2018-08-03 15:00:00"), 
+    #         Meeting.from_string("2018-08-01 11:15:00", "2018-08-01 12:15:00"), 
+    #         Meeting.from_string("2018-08-01 16:45:00", "2018-08-01 18:45:00"), 
+    #         Meeting.from_string("2018-08-06 14:15:00", "2018-08-06 16:30:00")
+    #         ]
+    #     expected = True
+    #     actual = check_availability(meetings, datetime(2018, 8, 7, 11, 30, 0))
+    #     # 2018-08-07 11:30:00
 
-        self.assertEqual(expected, actual)
+    #     self.assertEqual(expected, actual)
     
 
 
