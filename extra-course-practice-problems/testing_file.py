@@ -10,19 +10,6 @@ def check_availability(calendar, proposed_meeting):
     for meeting in calendar:
         start_time = meeting.start_time
         end_time = meeting.end_time
-
-        # if proposed_meeting >= start_time:
-        #     print("start_time:", start_time, "vs proposed_meeting:", proposed_meeting)
-        #     print("The proposed meeting either starts at the same time or after the proposed meeting starts")
-        #     print()
-
-        # if proposed_meeting < end_time:
-        #     print("end_time:", end_time, "vs proposed_meeting:", proposed_meeting)
-        #     print("The proposed starts before the current scheduled meeting ends")
-        #     print()
-
-        print(proposed_meeting)
-        print(start_time, "to", end_time)
         
         if proposed_meeting >= start_time and proposed_meeting < end_time:
             print("Proposed meeting:", proposed_meeting)
@@ -30,8 +17,6 @@ def check_availability(calendar, proposed_meeting):
             print("The proposed meeting both starts after the scheduled meeting AND ends before the scheduled meeting ends")
             return False
             
-
-    
     return True
 
 

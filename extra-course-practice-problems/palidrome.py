@@ -26,7 +26,61 @@
 
 import unittest
 
+# My 2nd attempt at this challenge:
+# (Note I have decided not to comment out my first attempt
+#  as I want my tests to remain connected/relevant to my first attempt's code)
+# For this reason I've included my 2nd attempt as a comment:
+
+# def format_string(string):
+#     updated_string = ""
+#     for letter in string:
+#         ordinal_value = ord(letter)
+#         if ordinal_value >= 65 and ordinal_value <= 90:
+#             updated_string += letter.lower()
+#         elif ordinal_value >= 97 and ordinal_value <= 122:
+#             updated_string += letter
+
+#     return updated_string
+
+
+# def sort_my_string(string):
+#     updated_string = ""
+#     ordinal_list = []
+#     for letter in string:
+#         ordinal_list.append(ord(letter))
+#     ordinal_list.sort()
+    
+#     for ordinal in ordinal_list:
+#         updated_string += chr(ordinal)
+
+#     return updated_string
+    
+    
+# def is_palindrome(string):
+#     updated_string = format_string(string)
+#     print(updated_string)
+#     mid_point = len(updated_string) // 2
+    
+#     if len(updated_string) % 2 == 0:
+#         first_half = updated_string[0:mid_point]
+#         second_half = updated_string[mid_point:]
+        
+#     elif len(updated_string) % 2 == 1:
+#         first_half = updated_string[0:mid_point]
+#         second_half = updated_string[mid_point+1:]
+       
+#     first_half = sort_my_string(first_half)
+#     second_half = sort_my_string(second_half)
+    
+#     if first_half == second_half:
+#         return True
+
+#     return False
+
+
 #Write your function here!
+
+# My first attempt - also linked to my unittests. 
 def remove_unwanted_characters(string_to_check):
     letters_only_string = ""
     for char in string_to_check:

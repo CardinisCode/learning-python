@@ -46,24 +46,47 @@
 import unittest
 
 #Write your function here!
-def check_value(dictionary, search_key):
-    try: 
-        current_value = dictionary[search_key]
-        current_value = float(current_value)
-        current_value_as_string = str(current_value)
-        last_digit = current_value_as_string[len(current_value_as_string)-1]
-
-        if last_digit == "0":
-            return "Integer!"
-
-        else:
-            return "Float!"
-
+# My 2nd pass at this challenge: 
+def check_value(myDict, search_string):
+    try:
+        current_string = myDict[search_string]
+        current_string = int(current_string)
+        return "Integer!"
+        
+        
     except KeyError:
         return "Not found!"
     
     except ValueError:
-        return "String!"
+        try:
+            current_string = float(current_string)
+            return "Float!"
+        except: 
+            return "String!"
+
+
+
+
+# My first pass at this challenge: 
+
+# def check_value(dictionary, search_key):
+    # try: 
+    #     current_value = dictionary[search_key]
+    #     current_value = float(current_value)
+    #     current_value_as_string = str(current_value)
+    #     last_digit = current_value_as_string[len(current_value_as_string)-1]
+
+    #     if last_digit == "0":
+    #         return "Integer!"
+
+    #     else:
+    #         return "Float!"
+
+    # except KeyError:
+    #     return "Not found!"
+    
+    # except ValueError:
+    #     return "String!"
 
 
 
