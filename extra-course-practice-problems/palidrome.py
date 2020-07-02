@@ -81,6 +81,7 @@ import unittest
 #Write your function here!
 
 # My first attempt - also linked to my unittests. 
+
 def remove_unwanted_characters(string_to_check):
     letters_only_string = ""
     for char in string_to_check:

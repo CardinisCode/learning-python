@@ -41,7 +41,7 @@
 
 #Write your code here!
 def fib_mult(n):
-    if n == 1 or n == 2:
+    if n <= 2:
         return n
     else:
         return fib_mult(n-2) * fib_mult(n-1)

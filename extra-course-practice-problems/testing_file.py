@@ -1,33 +1,89 @@
-from datetime import datetime
-class Meeting:
-    def __init__(self, start_time, end_time):
-        self.start_time = start_time
-        self.end_time = end_time
-
-print()
-#Write your function here!
-def check_availability(calendar, proposed_meeting):
-    for meeting in calendar:
-        start_time = meeting.start_time
-        end_time = meeting.end_time
-        
-        if proposed_meeting >= start_time and proposed_meeting < end_time:
-            print("Proposed meeting:", proposed_meeting)
-            print("scheduled meeting: starts at", start_time, "and ends at", end_time)
-            print("The proposed meeting both starts after the scheduled meeting AND ends before the scheduled meeting ends")
-            return False
-            
-    return True
-
-
-#Below are some lines of code that will test your function.
-#You can change the value of the variable(s) to test your
-#function with different inputs.
+#Remember that Fibonacci's sequence is a sequence of numbers
+#where every number is the sum of the previous two numbers.
 #
-#If your function works correctly, this will originally
-#print: True, then False
-meetings = [Meeting(datetime(2018, 8, 1, 9, 0, 0), datetime(2018, 8, 1, 11, 0, 0)),
-            Meeting(datetime(2018, 8, 1, 15, 0, 0), datetime(2018, 8, 1, 16, 0, 0)),
-            Meeting(datetime(2018, 8, 2, 9, 0, 0), datetime(2018, 8, 2, 10, 0, 0))]
-print(check_availability(meetings, datetime(2018, 8, 1, 12, 0, 0)))
-print(check_availability(meetings, datetime(2018, 8, 1, 10, 0, 0)))
+#There exists a variant of Fibonacci's sequence called
+#Fibonacci's multiplicative sequence. Fibonacci's
+#multiplicative sequence is identical to Fibonacci's
+#sequence, except that each number is the PRODUCT of the
+#previous two numbers instead of the sum. Let's call these
+#FibMult numbers.
+#
+#In order to make this interesting, we set the first two
+#FibMult numbers to 1 and 2. So, the 1st FibMult number is
+#1, and the second FibMult number is 2.
+#
+#So, here are the first few FibMult numbers:
+#
+#         n  = 1 2 3 4 5  6   7    8       9          10
+# FibMult(n) = 1 2 2 4 8 32 256 8192 2097152 17179869184
+#
+#The sequence gets large fast!
+#
+#Write the function fib_mult using recursion. fib_mult
+#takes as input an integer, and returns the FibMult
+#number corresponding to that integer. For example:
+#
+# - fib_mult(1) = 1
+# - fib_mult(2) = 2
+# - fib_mult(3) = 2
+# - fib_mult(9) = 2097152
+# - fib_mult(12) = 618970019642690137449562112
+#
+#fib_mult MUST be implemented recursively.
+#
+#Hint: You will actually have two separate base cases,
+#one for n = 1 and one for n = 2.
+
+import unittest
+#Write your code here!
+def fib_mult(n):
+    if n <= 2:
+        return n
+    else: 
+        return fib_mult(n-1) * fib_mult(n-2)
+
+
+
+
+#The lines below will test your code. If your funciton is
+#correct, they will print 1, 2, 2, and 2097152.
+print(fib_mult(1))
+print(fib_mult(2))
+print(fib_mult(3))
+print(fib_mult(9))
+
+
+class TestFibMult(unittest.TestCase):
+    def test_when_given_1_fibmult_returns_1(self):
+        expected = 1
+        actual = fib_mult(1)
+
+        self.assertEqual(expected, actual)
+
+    def test_when_given_2_fibmult_returns_2(self):
+        expected = 2
+        actual = fib_mult(2)
+
+        self.assertEqual(expected, actual)    
+
+    def test_when_given_3_fibmult_returns_2(self):
+        expected = 2
+        actual = fib_mult(3)
+
+        self.assertEqual(expected, actual)
+
+    def test_when_given_9_fibmult_returns_2(self):
+        expected = 2097152
+        actual = fib_mult(9)
+
+        self.assertEqual(expected, actual)
+
+    def test_when_given_12_fibmult_returns_618970019642690137449562112(self):
+        expected = 618970019642690137449562112
+        actual = fib_mult(12)
+
+        self.assertEqual(expected, actual)
+
+
+if __name__ == "__main__":
+    unittest.main()
