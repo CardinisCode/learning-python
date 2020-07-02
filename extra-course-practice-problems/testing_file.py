@@ -1,89 +1,68 @@
-#Remember that Fibonacci's sequence is a sequence of numbers
-#where every number is the sum of the previous two numbers.
+#Write a function called inverted_sort. inverted_ should
+#take as input a list of integers, and return as output a
+#list with the integers sorted from HIGHEST to LOWEST.
 #
-#There exists a variant of Fibonacci's sequence called
-#Fibonacci's multiplicative sequence. Fibonacci's
-#multiplicative sequence is identical to Fibonacci's
-#sequence, except that each number is the PRODUCT of the
-#previous two numbers instead of the sum. Let's call these
-#FibMult numbers.
+#You may use any sorting algorithm you want: bubble, merge,
+#insertion, selection, a new sort that you learned on your
+#own, or even one you created yourself. You may use loops,
+#or you may use recursion.
 #
-#In order to make this interesting, we set the first two
-#FibMult numbers to 1 and 2. So, the 1st FibMult number is
-#1, and the second FibMult number is 2.
-#
-#So, here are the first few FibMult numbers:
-#
-#         n  = 1 2 3 4 5  6   7    8       9          10
-# FibMult(n) = 1 2 2 4 8 32 256 8192 2097152 17179869184
-#
-#The sequence gets large fast!
-#
-#Write the function fib_mult using recursion. fib_mult
-#takes as input an integer, and returns the FibMult
-#number corresponding to that integer. For example:
-#
-# - fib_mult(1) = 1
-# - fib_mult(2) = 2
-# - fib_mult(3) = 2
-# - fib_mult(9) = 2097152
-# - fib_mult(12) = 618970019642690137449562112
-#
-#fib_mult MUST be implemented recursively.
-#
-#Hint: You will actually have two separate base cases,
-#one for n = 1 and one for n = 2.
+#You may not use Python's native list sort or reverse 
+#methods; you must write your own sort.
 
 import unittest
-#Write your code here!
-def fib_mult(n):
-    if n <= 2:
-        return n
-    else: 
-        return fib_mult(n-1) * fib_mult(n-2)
+#Write your function here!
+
+# Using a inverted/reverse Selection sort: 
+
+def inverted_sort(integers):
+    for i in range(0, len(integers)):
+        current_value = integers[i]
+        highest_value = current_value
+        highest_value_index = i
+
+        for j in range(i, len(integers)):
+            comparison_value = integers[j]
+
+            if comparison_value > highest_value:
+                highest_value = comparison_value
+                highest_value_index = j
+
+        swap = current_value
+        integers[i] = highest_value
+        integers[highest_value_index] = swap
+        
+    return integers
 
 
 
+#The code below will test your function. Feel free to
+#modify it. As written originally, it will print the list:
+# [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+print(inverted_sort([5, 4, 10, 1, 7, 2, 3, 6, 8, 9]))
 
-#The lines below will test your code. If your funciton is
-#correct, they will print 1, 2, 2, and 2097152.
-print(fib_mult(1))
-print(fib_mult(2))
-print(fib_mult(3))
-print(fib_mult(9))
+# class TestInvertedSort(unittest.TestCase):
+    
+    # def test_empty_list_returns_empty_list(self):
+    #     print("---------------------------")
+    #     unsorted_list = []
+    #     expected = []
+
+    #     actual = inverted_sort(unsorted_list)
+
+    #     self.assertEqual(expected, actual)        
 
 
-class TestFibMult(unittest.TestCase):
-    def test_when_given_1_fibmult_returns_1(self):
-        expected = 1
-        actual = fib_mult(1)
+    # def test_sorting_a_list_from_highest_down_to_lowest_value(self):
+    #     unsorted_list = [5, 4, 10, 1, 7, 2, 3, 6, 8, 9]
+    #     expected = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 
-        self.assertEqual(expected, actual)
+    #     actual = inverted_sort(unsorted_list)
 
-    def test_when_given_2_fibmult_returns_2(self):
-        expected = 2
-        actual = fib_mult(2)
-
-        self.assertEqual(expected, actual)    
-
-    def test_when_given_3_fibmult_returns_2(self):
-        expected = 2
-        actual = fib_mult(3)
-
-        self.assertEqual(expected, actual)
-
-    def test_when_given_9_fibmult_returns_2(self):
-        expected = 2097152
-        actual = fib_mult(9)
-
-        self.assertEqual(expected, actual)
-
-    def test_when_given_12_fibmult_returns_618970019642690137449562112(self):
-        expected = 618970019642690137449562112
-        actual = fib_mult(12)
-
-        self.assertEqual(expected, actual)
+    #     self.assertEqual(expected, actual)
 
 
 if __name__ == "__main__":
     unittest.main()
+
+
