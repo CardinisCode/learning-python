@@ -36,7 +36,8 @@ def count_squares(integers):
     return perfect_squares
 
 # I found that (after getting the sqrt of each number) I cant just check the 1st digit after the dot, and assume that it's a perfect square just because the first digit 
-# is a 0 - There will be occurrences where the digit is a 0 but there are values after the 0, making it a not-perfect-ssquare. 
+# is a 0 - There will be occurrences where the digit is a 0 but there are values after the 0, making it a not-perfect-square. 
+# So on line 33, the if statement checks to see if everything after the dot is a 0 and only if this is true, does it count it as a perfect square. 
 # 
 # On line 33, I could change the argument:
 #   if split_at_dot[1][0] == "0" and len(split_at_dot[1]) == 1: 
