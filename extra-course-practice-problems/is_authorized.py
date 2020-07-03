@@ -26,27 +26,38 @@
 import unittest
 
 #Write your function here!
-def check_guest_is_registered(registered_guests, current_guest):
-    guest_is_registered = False
-    authorized = False
 
-    for guest in registered_guests:
-        guest_name = guest.name
-        if guest_name == current_guest:
-            guest_is_registered = True
-            authorized = guest.authorized
+# My 2nd pass at this challenge: 
+# I am really happy I managed to bring this from 20 lines of code down to 5 lines! 
+def is_authorized(registration, current_name):
+    for individual in registration:
+        if individual.name == current_name and individual.authorized == True:
+            return True 
+    return False 
+
+
+# My first pass  at this challenge: 
+# def check_guest_is_registered(registered_guests, current_guest):
+#     guest_is_registered = False
+#     authorized = False
+
+#     for guest in registered_guests:
+#         guest_name = guest.name
+#         if guest_name == current_guest:
+#             guest_is_registered = True
+#             authorized = guest.authorized
         
-    return (guest_is_registered, authorized)
+#     return (guest_is_registered, authorized)
 
 
-def is_authorized(registered_guests, current_guest):
-    guest_is_registered, guest_is_authorized = check_guest_is_registered(
-        registered_guests, current_guest)
+# def is_authorized(registered_guests, current_guest):
+#     guest_is_registered, guest_is_authorized = check_guest_is_registered(
+#         registered_guests, current_guest)
 
-    if guest_is_registered and guest_is_authorized:
-        return True
+#     if guest_is_registered and guest_is_authorized:
+#         return True
 
-    return False
+#     return False
 
 
 #If you would like, you may implement the Registrant class as
