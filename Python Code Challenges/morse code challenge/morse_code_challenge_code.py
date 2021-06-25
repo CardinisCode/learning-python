@@ -41,21 +41,3 @@ class Solution:
 solution = Solution()
 print(solution.run(True, "- .... .   .-- .. --.. .- .-. -.."))
 
-
-        # translatedText = "- .... .   .-- .. --.. .- .-. -..   --.- ..- .. -.-. -.- .-.. -.--   .--- .. -. -..- . -..   - .... .   --. -. --- -- . ...   -... . ..-. --- .-. .   - .... . -.--   ...- .- .--. --- .-. .. --.. . -.. .-.-.-"
-        
-        # elif morseToEnglish == True:
-        #   translatedText = "the wizard quickly jinxed the gnomes before they vaporized."
-
-
-        #       if len(textToTranslate) == 0:
-        #   return "Invalid Morse Code Or Spacing"
-        
-        # morse_reference = {
-        #   "a": ".-", "b": "-...", "c": "-.-.", "d":"-..", "e":".", "f":"..-.", "g":"--.", "h":"....", "i":"..", "j":".---", "k":"-.-", "l":".-..", "m":"--", "n":"-.", "o":"---", "p":".--.", "q":"--.-", "r":".-.", "s":"...", "t": "-", "u":"..-", "v":"...-", "w":".--", "x":"-..-", "y":"-.--", "z":"--..", " ":"   "
-        # }
-        
-        # translatedText = ""
-
-        # return translatedText
-
