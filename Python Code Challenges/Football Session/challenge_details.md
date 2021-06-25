@@ -1,3 +1,5 @@
+Football Session challenge (On Hackajob):
+
 We want to be able to see how many goals a specific football team in the Premier League scored in total during the 2014/2015 season.
 All the information you need is contained in this JSON file: https://s3.eu-west-1.amazonaws.com/hackajob-assets1.p.hackajob/challenges/football_session/football.json
 
