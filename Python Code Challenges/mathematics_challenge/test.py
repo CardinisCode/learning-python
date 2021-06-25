@@ -28,7 +28,5 @@ class SolutionMethods(unittest.TestCase):
         self.assertEqual(solution.run(6), expected_output)
 
 
-
-
 if __name__ == "__main__":
     unittest.main()
