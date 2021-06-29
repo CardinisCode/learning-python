@@ -4,3 +4,8 @@ Source:
 https://www.geeksforgeeks.org/building-and-visualizing-sudoku-game-using-pygame/
 
 So I took the code for this challenge (which you'll find in main.py) and adjusted it to create a 5x5 grid MegaSudoku (main_5x5_grid.py). 
+
+
+Steps:
+[x] #1: Display a 5x5 grid with lines in between each internal 5x5 grid
+[ ] #2: 

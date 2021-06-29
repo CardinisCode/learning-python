@@ -15,6 +15,7 @@ x = 0
 y = 0
 dif = 750 / 25
 val = 0
+input_number = ""
 # Default Sudoku Board (9x9).
 grid =[
         [0, 19, 24, 7, 0, 0, 18, 1, 16, 0, 0, 25, 22, 10, 0, 0, 6, 21, 13, 0, 0, 8, 5, 9, 0],
@@ -101,15 +102,20 @@ def raise_error2():
 def valid(m, i, j, val):
     for it in range(25):
         if m[i][it]== val:
+            print("invalid 1", it, i, j, val, m[i][it])
             return False
         if m[it][j]== val:
+            print("invalid 2")
             return False
     it = i//5
     jt = j//5
     for i in range(it * 5, it * 5 + 5):
         for j in range (jt * 5, jt * 5 + 5):
             if m[i][j]== val:
+                print("invalid 3")
                 return False
+    
+    print("correct")
     return True
 
 
@@ -194,26 +200,29 @@ while run:
                 flag1 = 1
             if event.key == pygame.K_DOWN:
                 y+= 1
-                flag1 = 1   
+                flag1 = 1 
+            if event.key == pygame.K_0:
+                input_number += "0" 
             if event.key == pygame.K_1:
-                val = 1
+                input_number += "1"
             if event.key == pygame.K_2:
-                val = 2   
+                input_number += "2"   
             if event.key == pygame.K_3:
-                val = 3
+                input_number += "3"
             if event.key == pygame.K_4:
-                val = 4
+                input_number += "4"
             if event.key == pygame.K_5:
-                val = 5
+                input_number += "5"
             if event.key == pygame.K_6:
-                val = 6
+                input_number += "6"
             if event.key == pygame.K_7:
-                val = 7
+                input_number += "7"
             if event.key == pygame.K_8:
-                val = 8
+                input_number += "8"
             if event.key == pygame.K_9:
-                val = 9 
-            if event.key == pygame.K_RETURN:
+                input_number += "9" 
+
+            if event.key == pygame.K_RETURN: # auto solve
                 flag2 = 1  
             # If R pressed clear the sudoku board
             if event.key == pygame.K_r:
@@ -281,20 +290,20 @@ while run:
                 ]
 
     if flag2 == 1:
-        if solve(grid, 0, 0)== False:
-            error = 1
-        else:
-            rs = 1
+        try:
+            val = int(input_number)
+            print(val)
+        except:
+            pass
+        input_number = ""
         flag2 = 0   
     if val != 0:           
         draw_val(val)
-        # print(x)
-        # print(y)
-        if valid(grid, int(x), int(y), val)== True:
-            grid[int(x)][int(y)]= val
+        if valid(grid, int(y), int(x), val)== True:
+            grid[int(y)][int(x)]= val
             flag1 = 0
         else:
-            grid[int(x)][int(y)]= 0
+            grid[int(y)][int(x)]= 0
             raise_error2()  
         val = 0   
        
