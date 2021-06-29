@@ -1,4 +1,7 @@
 import pygame
+import time
+
+
 
 # initialise the pygame font
 pygame.font.init()
@@ -16,34 +19,22 @@ y = 0
 dif = 750 / 25
 val = 0
 input_number = ""
+original_problem = "5x5_default.csv"
 # Default Sudoku Board (9x9).
-grid =[
-        [0, 19, 24, 7, 0, 0, 18, 1, 16, 0, 0, 25, 22, 10, 0, 0, 6, 21, 13, 0, 0, 8, 5, 9, 0],
-        [9, 0, 0, 0, 20, 23, 0, 0, 13, 0, 1, 0, 0, 0, 4, 0, 22, 0, 0, 7, 14, 0, 0, 0, 6],
-        [6, 0, 17, 0, 21, 10, 0, 0, 0, 8, 0, 0, 5, 0, 0, 3, 0, 0, 0, 4, 20, 0, 18, 0, 25],
-        [10, 0, 0, 0, 23, 0, 24, 0, 0, 25, 8, 16, 0, 17, 18, 9, 0, 0, 19, 0, 22, 0, 0, 0, 2],
-        [0, 22, 25, 8, 0, 0, 6, 4, 14, 0, 0, 9, 0, 13, 0, 0, 1, 10, 12, 0, 0, 24, 23, 19, 0],
-        [0, 12, 5, 25, 0, 0, 8, 6, 4, 0, 0, 15, 21, 18, 0, 0, 3, 24, 11, 0, 0, 14, 22, 20, 0],
-        [22, 0, 0, 16, 19, 14, 25, 0, 0, 2, 5, 8, 0, 20, 9, 21, 0, 0, 17, 18, 23, 4, 0, 0, 15],
-        [13, 0, 0, 0, 10, 0, 0, 0, 0, 24, 2, 0, 12, 0, 16, 1, 0, 0, 0, 0, 25, 0, 0, 0, 5],
-        [7, 14, 0, 0, 8, 15, 0, 0, 1, 12, 4, 6, 0, 24, 13, 10, 5, 0, 0, 19, 18, 0, 0, 17, 9],
-        [0, 20, 21, 9, 0, 0, 23, 5, 17, 0, 0, 10, 0, 19, 0, 0, 25, 4, 2, 0, 0, 16, 1, 13, 0],
-        [0, 17, 7, 13, 0, 0, 20, 12, 23, 0, 0, 19, 0, 3, 0, 0, 14, 25, 21, 0, 0, 5, 15, 2, 0],
-        [24, 0, 0, 0, 4, 22, 0, 0, 0, 6, 21, 0, 0, 0, 25, 5, 0, 0, 0, 1, 17, 0, 0, 0, 19],
-        [1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 9, 0, 10, 0, 11, 0, 12, 0, 13],
-        [21, 0, 0, 0, 15, 19, 0, 0, 0, 9, 13, 0, 0, 0, 12, 2, 0, 0, 0, 8, 1, 0, 0, 0, 3],
-        [0, 10, 20, 19, 0, 0, 2, 15, 24, 0, 0, 1, 0, 5, 0, 0, 23, 22, 18, 0, 0, 6, 16, 4, 0],
-        [0, 5, 22, 24, 0, 0, 17, 13, 25, 0, 0, 7, 0, 2, 0, 0, 18, 16, 6, 0, 0, 9, 8, 21, 0],
-        [8, 3, 0, 0, 14, 5, 0, 0, 2, 22, 25, 23, 0, 6, 17, 4, 20, 0, 0, 13, 7, 0, 0, 15, 16],
-        [11, 0, 0, 0, 9, 0, 0, 0, 0, 16, 3, 0, 24, 0, 20, 14, 0, 0, 0, 0, 5, 0, 0, 0, 22],
-        [16, 0, 0, 17, 25, 18, 19, 0, 0, 23, 12, 21, 0, 4, 10, 22, 0, 0, 9, 11, 13, 3, 0, 0, 20],
-        [0, 4, 6, 23, 0, 0, 1, 24, 20, 0, 0, 22, 15, 9, 0, 0, 21, 17, 3, 0, 0, 12, 25, 11, 0],
-        [0, 15, 19, 6, 0, 0, 16, 14, 8, 0, 0, 5, 0, 25, 0, 0, 11, 2, 23, 0, 0, 18, 20, 22, 0],
-        [14, 0, 0, 0, 24, 0, 12, 0, 0, 18, 20, 11, 0, 1, 2, 25, 0, 0, 5, 0, 19, 0, 0, 0, 23],
-        [5, 0, 9, 0, 2, 24, 0, 0, 0, 20, 0, 0, 17, 0, 0, 6, 0, 0, 0, 21, 12, 0, 7, 0, 1],
-        [17, 0, 0, 0, 16, 25, 0, 0, 19, 0, 9, 0, 0, 0, 24, 0, 7, 0, 0, 22, 6, 0, 0, 0, 21],
-        [0, 8, 3, 18, 0, 0, 15, 2, 21, 0, 0, 4, 19, 16, 0, 0, 19, 9, 1, 0, 0, 25, 13, 14, 0],
-    ]
+
+
+def load_grid(filename):
+    with open(filename) as f:
+        lines = f.readlines()
+        return [[int(i) for i in x.split(',')] for x in lines]
+
+def save_grid(filename, local_grid):
+    with open("%s_%s" % (filename, "save"), 'w') as f:
+        for line in local_grid:
+            csv = ','.join([str(s) for s in line])
+            f.write("%s\n" % csv)
+
+grid = load_grid(original_problem)
 
 # Load test fonts for future use
 font1 = pygame.font.SysFont("comicsans", 20)
@@ -102,20 +93,16 @@ def raise_error2():
 def valid(m, i, j, val):
     for it in range(25):
         if m[i][it]== val:
-            print("invalid 1", it, i, j, val, m[i][it])
             return False
         if m[it][j]== val:
-            print("invalid 2")
             return False
     it = i//5
     jt = j//5
     for i in range(it * 5, it * 5 + 5):
         for j in range (jt * 5, jt * 5 + 5):
             if m[i][j]== val:
-                print("invalid 3")
                 return False
     
-    print("correct")
     return True
 
 
@@ -160,8 +147,10 @@ def solve(grid, i, j):
 def instruction():
     text1 = font2.render("PRESS D TO RESET TO DEFAULT / R TO EMPTY", 1, (0, 0, 0))
     text2 = font2.render("ENTER VALUES AND PRESS ENTER TO VISUALIZE", 1, (0, 0, 0))
+    text3 = font2.render("PRESS S TO SAVE AND PRESS L TO LOAD", 1, (0, 0, 0))
     screen.blit(text1, (20, 780))       
     screen.blit(text2, (20, 800))
+    screen.blit(text3, (20, 820))
 
 # Display options when solved
 def result():
@@ -221,6 +210,12 @@ while run:
                 input_number += "8"
             if event.key == pygame.K_9:
                 input_number += "9" 
+
+            if event.key == pygame.K_s:
+                save_grid(original_problem, grid)
+
+            if event.key == pygame.K_l:
+                grid = load_grid("%s_%s" % (original_problem, "save"))
 
             if event.key == pygame.K_RETURN: # auto solve
                 flag2 = 1  
